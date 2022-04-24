@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".UI.MainActivity">
+
+    <EditText
+        android:id="@+id/etPwdName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_name" />
+
+    <EditText
+        android:id="@+id/etPwdHash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_hash" />
+
+    <EditText
+        android:id="@+id/etFile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/file" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/readButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/read" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/readFromFileButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/read_from_file" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/writeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/write" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/writeToFileButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/write_to_file" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/clearButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_passwords" />
+
+    <TextView
+        android:id="@+id/tvOutput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/output"
+        android:textAlignment="center" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
