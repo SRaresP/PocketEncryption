@@ -9,10 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.offlinepasswordmanager.Cryptography.CryptoHandler;
 import com.example.offlinepasswordmanager.R;
-import com.example.offlinepasswordmanager.Storage.PwdStorageController;
+import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.Storage.StorageController;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.NotDirectoryException;
 import java.security.InvalidParameterException;
 
@@ -27,76 +31,62 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PwdStorageController pwdStorageController = PwdStorageController.getInstance();
+        EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(this);
 
         AppCompatButton readButton = findViewById(R.id.readButton);
-        AppCompatButton readFromFileButton = findViewById(R.id.readFromFileButton);
+        AppCompatButton readFromFolderButton = findViewById(R.id.readFromFolderButton);
         AppCompatButton writeButton = findViewById(R.id.writeButton);
-        AppCompatButton writeToFileButton = findViewById(R.id.writeToFileButton);
+        AppCompatButton writeToFolderButton = findViewById(R.id.writeToFolderButton);
         AppCompatButton clearButton = findViewById(R.id.clearButton);
 
-        EditText etPwdName = findViewById(R.id.etPwdName);
-        EditText etPwdHash = findViewById(R.id.etPwdHash);
-        EditText etFile = findViewById(R.id.etFile);
+        EditText etFileName = findViewById(R.id.etName);
+        EditText etText = findViewById(R.id.etText);
+        EditText etFolder = findViewById(R.id.etFolder);
 
         TextView tvOutput = findViewById(R.id.tvOutput);
 
-        try {
-            pwdStorageController.setup(getDir("Passwords", MODE_PRIVATE));
-        } catch (NotDirectoryException e) {
-            Log.d(TAG, e.getMessage(), e);
-        } catch (NullPointerException e) {
-            Log.d(TAG, e.getMessage(), e);
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
         writeButton.setOnClickListener(view -> {
             try {
-                pwdStorageController.addPassword(etPwdName.getText().toString(), etPwdHash.getText().toString());
-            } catch(InvalidParameterException e) {
+                encryptedStorageController.add(etFileName.getText().toString(), etText.getText().toString());
+            } catch (Exception e) {
                 Log.d(TAG, e.getMessage(), e);
-                Toast.makeText(MainActivity.this, "We couldn't add your password", Toast.LENGTH_LONG).show();
-                Toast.makeText(MainActivity.this, "The chance of this happening was approximately", Toast.LENGTH_LONG).show();
-                Toast.makeText(MainActivity.this, "1 in 10 9-illion", Toast.LENGTH_LONG).show();
             }
             Toast.makeText(MainActivity.this, "Wrote to file", Toast.LENGTH_SHORT).show();
         });
 
-        writeToFileButton.setOnClickListener(view -> {
+        writeToFolderButton.setOnClickListener(view -> {
             try {
-                pwdStorageController.addPassword(etPwdName.getText().toString(), etPwdHash.getText().toString(), etFile.getText().toString());
-            } catch(InvalidParameterException e) {
+                encryptedStorageController.add(etFileName.getText().toString(), etText.getText().toString(), etFolder.getText().toString());
+            } catch (Exception e) {
                 Log.d(TAG, e.getMessage(), e);
-                Toast.makeText(MainActivity.this, "We couldn't add your password", Toast.LENGTH_LONG).show();
-                Toast.makeText(MainActivity.this, "The chance of this happening was approximately", Toast.LENGTH_LONG).show();
-                Toast.makeText(MainActivity.this, "1 in 10 9-illion", Toast.LENGTH_LONG).show();
             }
             Toast.makeText(MainActivity.this, "Wrote to file", Toast.LENGTH_SHORT).show();
         });
 
         readButton.setOnClickListener(view -> {
             try {
-                tvOutput.setText(pwdStorageController.getPassword(etPwdName.getText().toString()));
+                tvOutput.setText(encryptedStorageController.get(etFileName.getText().toString()));
                 Toast.makeText(MainActivity.this, "Read from file", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage(), e);
-                Toast.makeText(MainActivity.this, "File to get password from was not found", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Folder to get password from was not found", Toast.LENGTH_LONG).show();
             }
         });
 
-        readFromFileButton.setOnClickListener(view -> {
+        readFromFolderButton.setOnClickListener(view -> {
             try {
-                tvOutput.setText(pwdStorageController.getPassword(etPwdName.getText().toString(), etFile.getText().toString()));
+                tvOutput.setText(encryptedStorageController.get(etFileName.getText().toString(), etFolder.getText().toString()));
                 Toast.makeText(MainActivity.this, "Read from file", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage(), e);
-                Toast.makeText(MainActivity.this, "File to get password from was not found", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Folder to get password from was not found", Toast.LENGTH_LONG).show();
             }
         });
 
-        clearButton.setOnClickListener(view -> pwdStorageController.clearPasswords());
-
-        CryptoHandler cryptoHandler = CryptoHandler.getInstance(this);
-        cryptoHandler.dostuff("this is just a n");
+        clearButton.setOnClickListener(view ->
+        {
+            StorageController.getInstance().deleteDirContents(getDataDir());
+            Toast.makeText(MainActivity.this, "Poof", Toast.LENGTH_SHORT).show();
+        });
     }
 }

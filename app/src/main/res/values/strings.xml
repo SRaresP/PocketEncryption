@@ -11,4 +11,10 @@
     <string name="file">File</string>
     <string name="read_from_file">Read from file</string>
     <string name="write_to_file">Write to file</string>
+    <string name="clear_all_data">Clear All Data</string>
+    <string name="name">Name</string>
+    <string name="text">Text</string>
+    <string name="folder">Folder</string>
+    <string name="read_from_folder">Read from folder</string>
+    <string name="write_to_folder">Write to folder</string>
 </resources>

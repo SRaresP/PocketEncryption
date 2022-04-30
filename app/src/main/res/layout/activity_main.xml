@@ -10,22 +10,22 @@
     tools:context=".UI.MainActivity">
 
     <EditText
-        android:id="@+id/etPwdName"
+        android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/password_name" />
+        android:hint="@string/name" />
 
     <EditText
-        android:id="@+id/etPwdHash"
+        android:id="@+id/etText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/password_hash" />
+        android:hint="@string/text" />
 
     <EditText
-        android:id="@+id/etFile"
+        android:id="@+id/etFolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/file" />
+        android:hint="@string/folder" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/readButton"
@@ -34,10 +34,10 @@
         android:text="@string/read" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/readFromFileButton"
+        android:id="@+id/readFromFolderButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/read_from_file" />
+        android:text="@string/read_from_folder" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/writeButton"
@@ -46,16 +46,16 @@
         android:text="@string/write" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/writeToFileButton"
+        android:id="@+id/writeToFolderButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/write_to_file" />
+        android:text="@string/write_to_folder" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/clearButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/clear_passwords" />
+        android:text="@string/clear_all_data" />
 
     <TextView
         android:id="@+id/tvOutput"

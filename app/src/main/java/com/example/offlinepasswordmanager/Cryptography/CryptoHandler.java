@@ -88,7 +88,7 @@ public class CryptoHandler {
             cipher = Cipher.getInstance("AES/CBC/NoPadding");
             keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
 
-            File keyStorageFile = StorageController.getInstance().findFile(context.getFilesDir(), keyStoreFileName);
+            File keyStorageFile = StorageController.getInstance().findFile(context.getFilesDir(), keyStoreFileName, false);
             if (keyStorageFile == null) {
                 generateIv = generateKey = true;
                 throw new FileNotFoundException(keyStoreFileName + " file was not found");

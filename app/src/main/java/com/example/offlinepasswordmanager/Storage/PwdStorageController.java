@@ -11,11 +11,11 @@ import java.security.InvalidParameterException;
 
 import javax.crypto.Cipher;
 
+//this is OLD UNUSED CODE, don't use it, use EncryptedStorageController instead
+
 //A password file on the filesystem is actually a folder within the app UI,
 //while a password within the UI is an entry within a file
 
-//TODO: Implement encryption
-//TODO: Implement duplicate checks
 public class PwdStorageController extends StorageController {
     private static final String TAG = "PwdStorageController";
 
@@ -63,7 +63,7 @@ public class PwdStorageController extends StorageController {
     }
 
     public String getPassword(String pwdName, String fileToGetFrom) throws NullPointerException, FileNotFoundException {
-        File targetFile = findFile(passwordDir, fileToGetFrom);
+        File targetFile = findFile(passwordDir, fileToGetFrom, false);
 
         if (targetFile == null) {
             throw new FileNotFoundException("Password file was not found.");

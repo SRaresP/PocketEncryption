@@ -4,10 +4,6 @@ import android.util.Log;
 
 import java.io.File;
 
-//Directory names should start with uppercase
-
-//File names should be fully lowercase
-
 public class StorageController {
     private static final String TAG = "StorageController";
 
@@ -36,7 +32,7 @@ public class StorageController {
         return new File(directory, fileName);
     }
 
-    public File findFile(File directory, String fileName) {
+    public File findFile(File directory, String fileName, boolean checkSubdirectories) {
         if (!directory.isDirectory()) {
             return null;
         }
@@ -48,11 +44,14 @@ public class StorageController {
             if (f.getName().equals(fileName)) {
                 return f;
             }
+            else if (checkSubdirectories && f.isDirectory()) {
+                return findFile(f, fileName, true);
+            }
         }
         return null;
     }
 
-    public void deleteDir(File directory) {
+    public void deleteDirContents(File directory) {
         File[] files = directory.listFiles();
         if (files == null) return;
         for (File f : files) {
@@ -61,6 +60,13 @@ public class StorageController {
             } else if (!f.delete()) {
                 Log.i(TAG, "Couldn't delete file.");
             }
+        }
+    }
+
+    public void deleteDir(File directory) {
+        deleteDirContents(directory);
+        if (!directory.delete()) {
+            Log.i(TAG, "Couldn't delete file.");
         }
     }
 }
