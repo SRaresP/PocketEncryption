@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- All id's in this file should start with "debug" to denote the activity -->
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,58 +9,58 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".UI.MainActivity">
+    tools:context=".UI.DebugActivity">
 
     <EditText
-        android:id="@+id/etName"
+        android:id="@+id/debugEtName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name" />
 
     <EditText
-        android:id="@+id/etText"
+        android:id="@+id/debugEtText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text" />
 
     <EditText
-        android:id="@+id/etFolder"
+        android:id="@+id/debugEtFolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/folder" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/readButton"
+        android:id="@+id/debugReadButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/read" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/readFromFolderButton"
+        android:id="@+id/debugReadFromFolderButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/read_from_folder" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/writeButton"
+        android:id="@+id/debugWriteButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/write" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/writeToFolderButton"
+        android:id="@+id/debugWriteToFolderButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/write_to_folder" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/clearButton"
+        android:id="@+id/debugClearButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/clear_all_data" />
 
     <TextView
-        android:id="@+id/tvOutput"
+        android:id="@+id/debugTvOutput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/output"

@@ -13,37 +13,30 @@ import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
 import com.example.offlinepasswordmanager.Storage.StorageController;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.NotDirectoryException;
-import java.security.InvalidParameterException;
-
 //TODO: Implement UI
 //TODO: Warn user whenever something goes wrong
-public class MainActivity extends AppCompatActivity {
+public class DebugActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "DebugActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_debug);
 
         EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(this);
 
-        AppCompatButton readButton = findViewById(R.id.readButton);
-        AppCompatButton readFromFolderButton = findViewById(R.id.readFromFolderButton);
-        AppCompatButton writeButton = findViewById(R.id.writeButton);
-        AppCompatButton writeToFolderButton = findViewById(R.id.writeToFolderButton);
-        AppCompatButton clearButton = findViewById(R.id.clearButton);
+        AppCompatButton readButton = findViewById(R.id.debugReadButton);
+        AppCompatButton readFromFolderButton = findViewById(R.id.debugReadFromFolderButton);
+        AppCompatButton writeButton = findViewById(R.id.debugWriteButton);
+        AppCompatButton writeToFolderButton = findViewById(R.id.debugWriteToFolderButton);
+        AppCompatButton clearButton = findViewById(R.id.debugClearButton);
 
-        EditText etFileName = findViewById(R.id.etName);
-        EditText etText = findViewById(R.id.etText);
-        EditText etFolder = findViewById(R.id.etFolder);
+        EditText etFileName = findViewById(R.id.debugEtName);
+        EditText etText = findViewById(R.id.debugEtText);
+        EditText etFolder = findViewById(R.id.debugEtFolder);
 
-        TextView tvOutput = findViewById(R.id.tvOutput);
+        TextView tvOutput = findViewById(R.id.debugTvOutput);
 
         writeButton.setOnClickListener(view -> {
             try {
@@ -51,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage(), e);
             }
-            Toast.makeText(MainActivity.this, "Wrote to file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DebugActivity.this, "Wrote to file", Toast.LENGTH_SHORT).show();
         });
 
         writeToFolderButton.setOnClickListener(view -> {
@@ -60,33 +53,33 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage(), e);
             }
-            Toast.makeText(MainActivity.this, "Wrote to file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DebugActivity.this, "Wrote to file", Toast.LENGTH_SHORT).show();
         });
 
         readButton.setOnClickListener(view -> {
             try {
                 tvOutput.setText(encryptedStorageController.get(etFileName.getText().toString()));
-                Toast.makeText(MainActivity.this, "Read from file", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DebugActivity.this, "Read from file", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage(), e);
-                Toast.makeText(MainActivity.this, "Folder to get password from was not found", Toast.LENGTH_LONG).show();
+                Toast.makeText(DebugActivity.this, "Folder to get password from was not found", Toast.LENGTH_LONG).show();
             }
         });
 
         readFromFolderButton.setOnClickListener(view -> {
             try {
                 tvOutput.setText(encryptedStorageController.get(etFileName.getText().toString(), etFolder.getText().toString()));
-                Toast.makeText(MainActivity.this, "Read from file", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DebugActivity.this, "Read from file", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage(), e);
-                Toast.makeText(MainActivity.this, "Folder to get password from was not found", Toast.LENGTH_LONG).show();
+                Toast.makeText(DebugActivity.this, "Folder to get password from was not found", Toast.LENGTH_LONG).show();
             }
         });
 
         clearButton.setOnClickListener(view ->
         {
             StorageController.getInstance().deleteDirContents(getDataDir());
-            Toast.makeText(MainActivity.this, "Poof", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DebugActivity.this, "Poof", Toast.LENGTH_SHORT).show();
         });
     }
 }

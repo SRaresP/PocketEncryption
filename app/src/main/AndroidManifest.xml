@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OfflinePasswordManager">
         <activity
-            android:name=".UI.MainActivity"
+            android:name=".UI.DebugActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UI.PrimaryActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
