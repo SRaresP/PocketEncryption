@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.offlinepasswordmanager.Cryptography.CryptoHandler;
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
 import com.example.offlinepasswordmanager.Storage.StorageController;
@@ -42,7 +43,7 @@ public class DebugActivity extends AppCompatActivity {
             try {
                 encryptedStorageController.add(etFileName.getText().toString(), etText.getText().toString());
             } catch (Exception e) {
-                Log.d(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
             }
             Toast.makeText(DebugActivity.this, "Wrote to file", Toast.LENGTH_SHORT).show();
         });
@@ -51,7 +52,7 @@ public class DebugActivity extends AppCompatActivity {
             try {
                 encryptedStorageController.add(etFileName.getText().toString(), etText.getText().toString(), etFolder.getText().toString());
             } catch (Exception e) {
-                Log.d(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
             }
             Toast.makeText(DebugActivity.this, "Wrote to file", Toast.LENGTH_SHORT).show();
         });
@@ -61,7 +62,7 @@ public class DebugActivity extends AppCompatActivity {
                 tvOutput.setText(encryptedStorageController.get(etFileName.getText().toString()));
                 Toast.makeText(DebugActivity.this, "Read from file", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Log.d(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 Toast.makeText(DebugActivity.this, "Folder to get password from was not found", Toast.LENGTH_LONG).show();
             }
         });
@@ -71,7 +72,7 @@ public class DebugActivity extends AppCompatActivity {
                 tvOutput.setText(encryptedStorageController.get(etFileName.getText().toString(), etFolder.getText().toString()));
                 Toast.makeText(DebugActivity.this, "Read from file", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Log.d(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 Toast.makeText(DebugActivity.this, "Folder to get password from was not found", Toast.LENGTH_LONG).show();
             }
         });
@@ -81,5 +82,12 @@ public class DebugActivity extends AppCompatActivity {
             StorageController.getInstance().deleteDirContents(getDataDir());
             Toast.makeText(DebugActivity.this, "Poof", Toast.LENGTH_SHORT).show();
         });
+
+        CryptoHandler cryptoHandler = CryptoHandler.getInstance(this);
+        String starter = "Just a normal string. Nothing to";
+        byte[] encrypted = cryptoHandler.encrypt(starter);
+        String decrypted = cryptoHandler.decrypt(encrypted);
+
+        Toast.makeText(DebugActivity.this, "Done initialising", Toast.LENGTH_SHORT).show();
     }
 }

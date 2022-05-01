@@ -27,7 +27,7 @@ public class EncryptedStorageController extends StorageController {
         super();
         encryptedStorageRoot = new File(context.getFilesDir().getAbsolutePath() + EncryptedStorageFolderPath);
         if (!encryptedStorageRoot.mkdirs())
-            Log.e(TAG, "Failed to make EncryptedStorage folder when initialising");
+            Log.i(TAG, "Failed to make EncryptedStorage folder when initialising, this may be because it already exists");
     }
 
     public static EncryptedStorageController getInstance(Context context) {

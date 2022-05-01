@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.offlinepasswordmanager.R;
 
+//TODO: Add an "add" button somewhere
 public class DataFragment extends Fragment {
 
     public DataFragment() {

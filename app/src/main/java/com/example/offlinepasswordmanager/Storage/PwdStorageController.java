@@ -54,7 +54,7 @@ public class PwdStorageController extends StorageController {
             fileWriter.write(pwdName + NAME_HASH_SEPARATOR + pwdHash + PWD_SEPARATOR);
             fileWriter.flush();
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
         }
     }
 
@@ -76,7 +76,7 @@ public class PwdStorageController extends StorageController {
                 stringBuilder.append((char)buffer);
             }
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
         }
 
         return stringBuilder.toString();
@@ -111,7 +111,7 @@ public class PwdStorageController extends StorageController {
                 stringBuilder.append((char) buffer);
             }
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
         }
 
         return stringBuilder.toString();
