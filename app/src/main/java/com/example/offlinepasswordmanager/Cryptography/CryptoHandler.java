@@ -34,9 +34,9 @@ public class CryptoHandler {
     private IvParameterSpec iv;
 
     private KeyStore keyStore;
-    private char[] passwordC;
+    private final char[] passwordC;
 
-    protected void generate(boolean generateKey, boolean generateIv, Context context)
+    protected void generate(final boolean generateKey, final boolean generateIv, final Context context)
             throws CertificateException,
             IOException,
             NoSuchAlgorithmException,
@@ -73,7 +73,7 @@ public class CryptoHandler {
 
     }
 
-    protected CryptoHandler(Context context) {
+    protected CryptoHandler(final Context context) {
         //TODO: modify this password before finalising app
         String passwordS = "_somepassword_";
         passwordC = new char[passwordS.length()];
@@ -120,10 +120,10 @@ public class CryptoHandler {
         }
     }
 
-    public static CryptoHandler getInstance(Context context) {
+    public static CryptoHandler getInstance(final Context context) {
         return instance == null ? instance = new CryptoHandler(context) : instance;
     }
-
+    /*
     public String dostuff(String toEncrypt) {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key);
@@ -139,9 +139,12 @@ public class CryptoHandler {
             return null;
         }
     }
+    */
 
     //TODO: check if passed arguments are multiples of 16 bytes and amend if necessary
-    public byte[] encrypt(String toEncrypt) {
+
+
+    public byte[] encrypt(final String toEncrypt) {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
             return cipher.doFinal(toEncrypt.getBytes("UTF-8"));
@@ -151,7 +154,7 @@ public class CryptoHandler {
         }
     }
 
-    public String decrypt(byte[] toDecrypt) {
+    public String decrypt(final byte[] toDecrypt) {
         try {
             cipher.init(Cipher.DECRYPT_MODE, key, iv);
             return new String(cipher.doFinal(toDecrypt), "UTF-8");

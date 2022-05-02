@@ -21,16 +21,16 @@ public class EncryptedStorageController extends StorageController {
 
     private static EncryptedStorageController instance;
 
-    private File encryptedStorageRoot;
+    private final File encryptedStorageRoot;
 
-    private EncryptedStorageController(Context context) {
+    private EncryptedStorageController(final Context context) {
         super();
         encryptedStorageRoot = new File(context.getFilesDir().getAbsolutePath() + EncryptedStorageFolderPath);
         if (!encryptedStorageRoot.mkdirs())
             Log.i(TAG, "Failed to make EncryptedStorage folder when initialising, this may be because it already exists");
     }
 
-    public static EncryptedStorageController getInstance(Context context) {
+    public static EncryptedStorageController getInstance(final Context context) {
         if (instance == null) {
             return instance = new EncryptedStorageController(context);
         } else {
@@ -41,7 +41,8 @@ public class EncryptedStorageController extends StorageController {
     //the file name should be the name of the text within the app
     //eg if we store an account, we would have "Steam account" as the name
 
-    public void add(String fileName, String fileContents, String internalAppFolder) throws  FileAlreadyExistsException, IOException {
+    public void add(final String fileName, final String fileContents, final String internalAppFolder)
+            throws  FileAlreadyExistsException, IOException {
         File folder = new File(encryptedStorageRoot.getAbsolutePath() + internalAppFolder);
         folder.mkdirs();
         File file = findFile(folder, fileName, false);
@@ -54,11 +55,11 @@ public class EncryptedStorageController extends StorageController {
         fileWriter.flush();
     }
 
-    public void add(String fileName, String fileContents) throws IOException {
+    public void add(final String fileName, final String fileContents) throws IOException {
         add(fileName, fileContents, encryptedStorageRoot.getAbsolutePath());
     }
 
-    public String get(String fileName, String folderToGetFrom) throws NullPointerException, FileNotFoundException, IOException {
+    public String get(final String fileName, final String folderToGetFrom) throws NullPointerException, FileNotFoundException, IOException {
         File folder = new File(encryptedStorageRoot.getAbsolutePath() + folderToGetFrom);
         folder.mkdirs();
         File targetFile = findFile(folder, fileName, false);
@@ -75,7 +76,7 @@ public class EncryptedStorageController extends StorageController {
         return stringBuilder.toString();
     }
 
-    public String get(String fileName) throws NullPointerException, FileNotFoundException, IOException {
+    public String get(final String fileName) throws NullPointerException, FileNotFoundException, IOException {
         return get(fileName, encryptedStorageRoot.getAbsolutePath());
     }
 

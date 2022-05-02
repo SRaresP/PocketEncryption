@@ -18,7 +18,7 @@ import com.example.offlinepasswordmanager.R;
 
 public class FileEntryLayout extends LinearLayoutCompat {
 
-    private void setup(Context context, String filePath) {
+    private void setup(final Context context, final String filePath) {
         setOrientation(LinearLayoutCompat.HORIZONTAL);
         setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         setGravity(Gravity.START);
@@ -42,7 +42,7 @@ public class FileEntryLayout extends LinearLayoutCompat {
         super(context);
     }
 
-    public FileEntryLayout(@NonNull Context context, String filePath) {
+    public FileEntryLayout(@NonNull Context context, final String filePath) {
         super(context);
         setup(context, filePath);
     }

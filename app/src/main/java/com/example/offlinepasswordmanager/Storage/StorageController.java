@@ -19,7 +19,7 @@ public class StorageController {
         }
     }
 
-    public File findOrCreateFile(File directory, String fileName) {
+    public File findOrCreateFile(final File directory, final String fileName) {
         File[] files = directory.listFiles();
         if (files == null) {
             return new File(directory, fileName);
@@ -32,7 +32,7 @@ public class StorageController {
         return new File(directory, fileName);
     }
 
-    public File findFile(File directory, String fileName, boolean checkSubdirectories) {
+    public File findFile(final File directory, final String fileName, final boolean checkSubdirectories) {
         if (!directory.isDirectory()) {
             return null;
         }
@@ -51,7 +51,7 @@ public class StorageController {
         return null;
     }
 
-    public void deleteDirContents(File directory) {
+    public void deleteDirContents(final File directory) {
         File[] files = directory.listFiles();
         if (files == null) return;
         for (File f : files) {
@@ -63,7 +63,7 @@ public class StorageController {
         }
     }
 
-    public void deleteDir(File directory) {
+    public void deleteDir(final File directory) {
         deleteDirContents(directory);
         if (!directory.delete()) {
             Log.i(TAG, "Couldn't delete file.");
