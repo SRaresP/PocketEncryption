@@ -27,6 +27,8 @@ public class DebugActivity extends AppCompatActivity {
 
         EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(this);
 
+        Toast.makeText(DebugActivity.this, "Done initialising", Toast.LENGTH_SHORT).show();
+
         AppCompatButton readButton = findViewById(R.id.debugReadButton);
         AppCompatButton readFromFolderButton = findViewById(R.id.debugReadFromFolderButton);
         AppCompatButton writeButton = findViewById(R.id.debugWriteButton);
@@ -82,12 +84,5 @@ public class DebugActivity extends AppCompatActivity {
             StorageController.getInstance().deleteDirContents(getDataDir());
             Toast.makeText(DebugActivity.this, "Poof", Toast.LENGTH_SHORT).show();
         });
-
-        CryptoHandler cryptoHandler = CryptoHandler.getInstance(this);
-        String starter = "Just a normal string. Nothing to";
-        byte[] encrypted = cryptoHandler.encrypt(starter);
-        String decrypted = cryptoHandler.decrypt(encrypted);
-
-        Toast.makeText(DebugActivity.this, "Done initialising", Toast.LENGTH_SHORT).show();
     }
 }

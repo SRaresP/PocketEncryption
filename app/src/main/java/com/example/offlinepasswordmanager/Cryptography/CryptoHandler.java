@@ -27,6 +27,7 @@ public class CryptoHandler {
     private static final String keyAlias = "AESStringsEncryptionKey";
     private static final String ivAlias = "AESStringsEncryptionIv";
     private static final String keyStoreFileName = "keystorage";
+    private static final char paddingCharacter = 0;
     private static CryptoHandler instance;
 
     private Cipher cipher;
@@ -123,31 +124,34 @@ public class CryptoHandler {
     public static CryptoHandler getInstance(final Context context) {
         return instance == null ? instance = new CryptoHandler(context) : instance;
     }
-    /*
-    public String dostuff(String toEncrypt) {
-        try {
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] toReturn = cipher.doFinal(toEncrypt.getBytes("UTF-8"));
 
-            cipher.init(Cipher.DECRYPT_MODE, key);
-            toReturn = cipher.doFinal(toReturn);
-            toEncrypt = new String(toReturn, "UTF-8");
-
-            return null;
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
-            return null;
+    public String toMultipleOfSixteen(final String parameter) {
+        int difference = 16 - (parameter.length() % 16);
+        if (difference == 16) return parameter;
+        StringBuilder stringBuilder = new StringBuilder(parameter);
+        while (difference > 0) {
+            stringBuilder.append(paddingCharacter);
+            --difference;
         }
+        return stringBuilder.toString();
     }
-    */
 
-    //TODO: check if passed arguments are multiples of 16 bytes and amend if necessary
-
+    public byte[] fromMultipleOfSixteen(final byte[] parameter) {
+        int count = 0;
+        for (int i = parameter.length - 1; i > 0; --i) {
+            if (parameter[i] == 0) {
+                ++count;
+            } else break;
+        }
+        byte[] result = new byte[parameter.length - count];
+        System.arraycopy(parameter, 0, result, 0, result.length);
+        return result;
+    }
 
     public byte[] encrypt(final String toEncrypt) {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-            return cipher.doFinal(toEncrypt.getBytes("UTF-8"));
+            return cipher.doFinal(toMultipleOfSixteen(toEncrypt).getBytes("UTF-8"));
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             return null;
@@ -157,7 +161,7 @@ public class CryptoHandler {
     public String decrypt(final byte[] toDecrypt) {
         try {
             cipher.init(Cipher.DECRYPT_MODE, key, iv);
-            return new String(cipher.doFinal(toDecrypt), "UTF-8");
+            return new String(fromMultipleOfSixteen(cipher.doFinal(toDecrypt)), "UTF-8");
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             return null;
