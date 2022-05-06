@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -125,15 +126,16 @@ public class CryptoHandler {
         return instance == null ? instance = new CryptoHandler(context) : instance;
     }
 
-    public String toMultipleOfSixteen(final String parameter) {
-        int difference = 16 - (parameter.length() % 16);
-        if (difference == 16) return parameter;
-        StringBuilder stringBuilder = new StringBuilder(parameter);
-        while (difference > 0) {
-            stringBuilder.append(paddingCharacter);
-            --difference;
-        }
-        return stringBuilder.toString();
+    //TODO: doesn't work on UTF-8 characters? throws invalid data length exception even though
+    // it accounts for a difference of 5 characters, for example
+    // maybe convert to a byte[] before checking the length?
+    public byte[] toMultipleOfSixteen(final String parameter) {
+        byte[] input = parameter.getBytes(StandardCharsets.UTF_8);
+        int difference = 16 - (input.length % 16);
+        if (difference == 16) return input;
+        byte[] result = new byte[input.length + difference];
+        System.arraycopy(input, 0, result, 0, input.length);
+        return result;
     }
 
     public byte[] fromMultipleOfSixteen(final byte[] parameter) {
@@ -151,7 +153,7 @@ public class CryptoHandler {
     public byte[] encrypt(final String toEncrypt) {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-            return cipher.doFinal(toMultipleOfSixteen(toEncrypt).getBytes("UTF-8"));
+            return cipher.doFinal(toMultipleOfSixteen(toEncrypt));
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             return null;
@@ -161,7 +163,7 @@ public class CryptoHandler {
     public String decrypt(final byte[] toDecrypt) {
         try {
             cipher.init(Cipher.DECRYPT_MODE, key, iv);
-            return new String(fromMultipleOfSixteen(cipher.doFinal(toDecrypt)), "UTF-8");
+            return new String(fromMultipleOfSixteen(cipher.doFinal(toDecrypt)), StandardCharsets.UTF_8);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             return null;
