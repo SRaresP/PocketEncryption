@@ -5,6 +5,11 @@ This project is nearing alpha. Will update readme as I make progress.
 The app's backbone is pretty much done now and can almost be used.
 
 # Currently working on:
+
+-Fixing the storage controller, again
+
+-Fixing the cryptography to/from multiple of 16 bytes methods because apparently they don't work, again
+
 -UI
 
 # TODO:
