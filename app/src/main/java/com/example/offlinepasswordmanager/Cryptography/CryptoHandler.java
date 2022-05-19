@@ -28,12 +28,14 @@ public class CryptoHandler {
     private static final String keyAlias = "AESStringsEncryptionKey";
     private static final String ivAlias = "AESStringsEncryptionIv";
     private static final String keyStoreFileName = "keystorage";
+    //TODO: decide whether "paddingCharacter" needs to be kept
     private static final char paddingCharacter = 0;
     private static CryptoHandler instance;
 
     private Cipher cipher;
     private SecretKey key;
     private IvParameterSpec iv;
+    private int CurrentBlockSize;
 
     private KeyStore keyStore;
     private final char[] passwordC;
@@ -120,15 +122,15 @@ public class CryptoHandler {
                 Log.e(TAG, e.getMessage() + "; Generation of secrets did not work properly twice in a row", e);
             }
         }
+
+        CurrentBlockSize = cipher.getBlockSize();
+        int i = 0;
     }
 
     public static CryptoHandler getInstance(final Context context) {
         return instance == null ? instance = new CryptoHandler(context) : instance;
     }
 
-    //TODO: doesn't work on UTF-8 characters? throws invalid data length exception even though
-    // it accounts for a difference of 5 characters, for example
-    // maybe convert to a byte[] before checking the length?
     public byte[] toMultipleOfSixteen(final String parameter) {
         byte[] input = parameter.getBytes(StandardCharsets.UTF_8);
         int difference = 16 - (input.length % 16);
@@ -163,10 +165,17 @@ public class CryptoHandler {
     public String decrypt(final byte[] toDecrypt) {
         try {
             cipher.init(Cipher.DECRYPT_MODE, key, iv);
-            return new String(fromMultipleOfSixteen(cipher.doFinal(toDecrypt)), StandardCharsets.UTF_8);
+            byte[] resultC = cipher.doFinal(toDecrypt);
+            resultC = fromMultipleOfSixteen(resultC);
+            String resultS = new String(resultC, StandardCharsets.UTF_8);
+            return resultS;
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             return null;
         }
+    }
+
+    public int getCurrentBlockSize() {
+        return CurrentBlockSize;
     }
 }

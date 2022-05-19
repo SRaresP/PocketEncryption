@@ -6,10 +6,6 @@ The app's backbone is pretty much done now and can almost be used.
 
 # Currently working on:
 
--Fixing the storage controller, again
-
--Fixing the cryptography to/from multiple of 16 bytes methods because apparently they don't work, again
-
 -UI
 
 # TODO:
@@ -20,10 +16,16 @@ The app's backbone is pretty much done now and can almost be used.
 
 -Use threading to ensure responsiveness of UI
 
+-Code cleanup and refactoring
+
+-Define exception catching areas (throw them all out to the highest level to warn user of everything?)
+
 
 # Done:
 -Implemented easy-to-use encryption utilities using modern algorithms
 
 -Encryption key secure storage using the Android Key Store
 
--Easy-use file r/w utilities
+-Easy-use, encrypted file r/w utilities
+
+-Theming, partially

@@ -1,20 +1,30 @@
 package com.example.offlinepasswordmanager.Storage;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.offlinepasswordmanager.Cryptography.CryptoHandler;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.NotDirectoryException;
 import java.security.InvalidParameterException;
 
-//TODO: implement encryption
 public class EncryptedStorageController extends StorageController {
     private static final String TAG = "EncryptedStorageController";
     private static final String EncryptedStorageFolderPath = "/EncryptedStorage";
@@ -22,12 +32,14 @@ public class EncryptedStorageController extends StorageController {
     private static EncryptedStorageController instance;
 
     private final File encryptedStorageRoot;
+    private CryptoHandler cryptoHandler;
 
     private EncryptedStorageController(final Context context) {
         super();
         encryptedStorageRoot = new File(context.getFilesDir().getAbsolutePath() + EncryptedStorageFolderPath);
         if (!encryptedStorageRoot.mkdirs())
             Log.i(TAG, "Failed to make EncryptedStorage folder when initialising, this may be because it already exists");
+        cryptoHandler = CryptoHandler.getInstance(context);
     }
 
     public static EncryptedStorageController getInstance(final Context context) {
@@ -41,8 +53,8 @@ public class EncryptedStorageController extends StorageController {
     //the file name should be the name of the text within the app
     //eg if we store an account, we would have "Steam account" as the name
 
-    public void add(final String fileName, final String fileContents, final String internalAppFolder)
-            throws  FileAlreadyExistsException, IOException {
+    public void addOLD(final String fileName, final String fileContents, final String internalAppFolder)
+            throws FileAlreadyExistsException, IOException {
         File folder = new File(encryptedStorageRoot.getAbsolutePath() + internalAppFolder);
         folder.mkdirs();
         File file = findFile(folder, fileName, false);
@@ -51,9 +63,35 @@ public class EncryptedStorageController extends StorageController {
         }
         file = new File(folder, fileName);
         FileWriter fileWriter = new FileWriter(file);
-        fileWriter.write(fileContents);
+
+        byte[] encFileContents = cryptoHandler.encrypt(fileContents);
+
+        String result = new String(encFileContents, StandardCharsets.UTF_8);
+        fileWriter.write(result);
         fileWriter.flush();
+
+        Log.i(TAG, "Wrote to encrypted file: " + result);
     }
+    public void add(final String fileName, final String fileContents, final String internalAppFolder)
+            throws FileAlreadyExistsException, IOException {
+        File folder = new File(encryptedStorageRoot.getAbsolutePath() + internalAppFolder);
+        folder.mkdirs();
+        File file = findFile(folder, fileName, false);
+        if (file != null) {
+            throw new FileAlreadyExistsException("Duplicate file name provided");
+        }
+        file = new File(folder, fileName);
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+        byte[] encFileContents = cryptoHandler.encrypt(fileContents);
+
+        fileOutputStream.write(encFileContents);
+        fileOutputStream.flush();
+        fileOutputStream.close();
+        //TODO: Remove this debug log
+        Log.i(TAG, "Wrote to encrypted file: " + new String(encFileContents, StandardCharsets.UTF_8));
+    }
+
 
     public void add(final String fileName, final String fileContents) throws IOException {
         add(fileName, fileContents, encryptedStorageRoot.getAbsolutePath());
@@ -66,14 +104,21 @@ public class EncryptedStorageController extends StorageController {
         if (targetFile == null) {
             throw new FileNotFoundException("Encrypted file was not found.");
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        int buffer;
-        FileReader fileReader = new FileReader(targetFile);
-        while ((buffer = fileReader.read()) != -1) {
-            stringBuilder.append((char) buffer);
-        }
 
-        return stringBuilder.toString();
+        FileInputStream fileInputStream = new FileInputStream(targetFile);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        //WE HAVE TO READ THE ENCRYPTED DATA IN CHUNKS OF THE EXACT BLOCK SIZE IT WAS WRITTEN IN
+        //well, I think
+        byte[] input = new byte[cryptoHandler.getCurrentBlockSize()];
+        while (fileInputStream.read(input) != -1) {
+            byteArrayOutputStream.write(input);
+        }
+        byte[] fileContents = byteArrayOutputStream.toByteArray();
+
+        //TODO: Remove this debug log
+        Log.i(TAG, "Read from encrypted file: " + new String(fileContents));
+        return cryptoHandler.decrypt(fileContents);
     }
 
     public String get(final String fileName) throws NullPointerException, FileNotFoundException, IOException {
