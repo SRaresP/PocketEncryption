@@ -1,7 +1,10 @@
 package com.example.offlinepasswordmanager.UI;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -9,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.offlinepasswordmanager.R;
+import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
+
+import java.util.ArrayList;
 
 //TODO: Add an "add" button somewhere
 public class DataFragment extends Fragment {
@@ -34,5 +40,16 @@ public class DataFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_data, container, false);
+    }
+
+    public void setup(AppCompatActivity activity, String internalDirPath) {
+        ViewGroup dataFilesLayout =  activity.findViewById(R.id.dataFilesLayout);
+
+        EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
+        ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
+        for (String filePath : filePaths) {
+            FileEntryLayout fileEntryLayout = new FileEntryLayout(activity, filePath);
+            dataFilesLayout.addView(fileEntryLayout);
+        }
     }
 }

@@ -3,21 +3,16 @@ package com.example.offlinepasswordmanager.Storage;
 import android.util.Log;
 
 import java.io.File;
+import java.nio.file.NotDirectoryException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StorageController {
     private static final String TAG = "StorageController";
 
     private static StorageController instance;
 
-    protected StorageController() {}
-
-    public static StorageController getInstance() {
-        if (instance == null) {
-            return instance = new StorageController();
-        } else {
-            return instance;
-        }
-    }
+    public StorageController() {}
 
     public File findOrCreateFile(final File directory, final String fileName) {
         File[] files = directory.listFiles();
@@ -66,7 +61,7 @@ public class StorageController {
     public void deleteDir(final File directory) {
         deleteDirContents(directory);
         if (!directory.delete()) {
-            Log.i(TAG, "Couldn't delete file.");
+            Log.i(TAG, "Couldn't delete directory.");
         }
     }
 }

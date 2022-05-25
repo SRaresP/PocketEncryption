@@ -26,6 +26,7 @@ public class DebugActivity extends AppCompatActivity {
         setContentView(R.layout.activity_debug);
 
         EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(this);
+        StorageController storageController = new StorageController();
 
         Toast.makeText(DebugActivity.this, "Done initialising", Toast.LENGTH_SHORT).show();
 
@@ -81,7 +82,7 @@ public class DebugActivity extends AppCompatActivity {
 
         clearButton.setOnClickListener(view ->
         {
-            StorageController.getInstance().deleteDirContents(getDataDir());
+            storageController.deleteDirContents(getDataDir());
             Toast.makeText(DebugActivity.this, "Poof", Toast.LENGTH_SHORT).show();
         });
     }

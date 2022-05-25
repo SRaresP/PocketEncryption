@@ -24,6 +24,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.NotDirectoryException;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EncryptedStorageController extends StorageController {
     private static final String TAG = "EncryptedStorageController";
@@ -72,6 +74,7 @@ public class EncryptedStorageController extends StorageController {
 
         Log.i(TAG, "Wrote to encrypted file: " + result);
     }
+    //TODO: files are getting created in a weird filepath instead of directly inside the encrypted storage root
     public void add(final String fileName, final String fileContents, final String internalAppFolder)
             throws FileAlreadyExistsException, IOException {
         File folder = new File(encryptedStorageRoot.getAbsolutePath() + internalAppFolder);
@@ -127,5 +130,41 @@ public class EncryptedStorageController extends StorageController {
 
     public void wipeEncryptedData() {
         deleteDirContents(encryptedStorageRoot);
+    }
+
+    public List<String> getFilenamesFrom(String internalDirPath) {
+        File directory = new File(encryptedStorageRoot.getAbsolutePath() + internalDirPath);
+        if (!directory.mkdirs()) {
+            Log.e(TAG, "File passed to getFilenamesFrom() was not a directory");
+        }
+        File[] files = directory.listFiles();
+        if (files == null) {
+            return null;
+        }
+        ArrayList<String> filenames = new ArrayList<>(files.length);
+        for(File file : files) {
+            filenames.add(file.getName());
+        }
+        return filenames;
+    }
+
+    public ArrayList<String> getFilePathsFrom(String internalDirPath) {
+        File directory = new File(encryptedStorageRoot.getAbsolutePath() + internalDirPath);
+        if (!directory.mkdirs()) {
+            Log.e(TAG, "File passed to getFilenamesFrom() was not a directory");
+        }
+        File[] files = directory.listFiles();
+        if (files == null) {
+            return null;
+        }
+        ArrayList<String> filePaths = new ArrayList<>(files.length);
+        for(File file : files) {
+            filePaths.add(file.getAbsolutePath());
+        }
+        return filePaths;
+    }
+
+    public String getEncryptedStorageRootPath() {
+        return encryptedStorageRoot.getAbsolutePath();
     }
 }

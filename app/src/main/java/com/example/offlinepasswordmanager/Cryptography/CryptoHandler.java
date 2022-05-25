@@ -40,6 +40,8 @@ public class CryptoHandler {
     private KeyStore keyStore;
     private final char[] passwordC;
 
+    private StorageController storageController;
+
     protected void generate(final boolean generateKey, final boolean generateIv, final Context context)
             throws CertificateException,
             IOException,
@@ -82,6 +84,7 @@ public class CryptoHandler {
         String passwordS = "_somepassword_";
         passwordC = new char[passwordS.length()];
         passwordS.getChars(0, passwordS.length(), passwordC, 0);
+        storageController = new StorageController();
 
         boolean generateKey = false;
         boolean generateIv = false;
@@ -90,7 +93,7 @@ public class CryptoHandler {
             cipher = Cipher.getInstance("AES/CBC/NoPadding");
             keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
 
-            File keyStorageFile = StorageController.getInstance().findFile(context.getFilesDir(), keyStoreFileName, false);
+            File keyStorageFile = storageController.findFile(context.getFilesDir(), keyStoreFileName, false);
             if (keyStorageFile == null) {
                 generateIv = generateKey = true;
                 throw new FileNotFoundException(keyStoreFileName + " file was not found");
