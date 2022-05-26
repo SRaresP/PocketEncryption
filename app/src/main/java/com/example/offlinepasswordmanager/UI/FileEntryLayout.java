@@ -34,21 +34,18 @@ public class FileEntryLayout extends LinearLayoutCompat {
         TextView entryNameTV = new TextView(activity);
         entryNameTV.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
         entryNameTV.setTextSize(30);
-
-        addView(entryTypeIV);
-        addView(entryNameTV);
+        entryNameTV.setText(new File(filePath).getName());
 
         if (new File(filePath).isDirectory()) {
             entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_folder_24));
 
             setOnClickListener(view -> {
                 //TODO: navigate to the folder specified by this FileEntryLayout
-                DataFragment dataFragment = new DataFragment();
+                DataFragment dataFragment = new DataFragment(filePath.replaceAll(EncryptedStorageController.getInstance(activity).getEncryptedStorageRootPath(), ""));
                 FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
 
                 fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragment);
                 fragmentTransaction.commitNow();
-                dataFragment.setup(activity, filePath.replaceAll(EncryptedStorageController.getInstance(activity).getEncryptedStorageRootPath(), ""));
             });
         }
         else {
@@ -58,6 +55,9 @@ public class FileEntryLayout extends LinearLayoutCompat {
                 //TODO: start a new activity to view and edit this file if it is a text file
             });
         }
+
+        addView(entryTypeIV);
+        addView(entryNameTV);
     }
 
     public FileEntryLayout(@NonNull Context context) {

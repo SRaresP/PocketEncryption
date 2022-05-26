@@ -53,7 +53,7 @@ public class DebugActivity extends AppCompatActivity {
 
         writeToFolderButton.setOnClickListener(view -> {
             try {
-                encryptedStorageController.add(etFileName.getText().toString(), etText.getText().toString(), etFolder.getText().toString());
+                encryptedStorageController.add(etFileName.getText().toString(), etText.getText().toString(), '/' + etFolder.getText().toString());
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
             }

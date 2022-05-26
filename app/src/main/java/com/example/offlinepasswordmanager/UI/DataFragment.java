@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -18,9 +20,13 @@ import java.util.ArrayList;
 
 //TODO: Add an "add" button somewhere
 public class DataFragment extends Fragment {
+    private String internalDirPath;
 
     public DataFragment() {
         // Required empty public constructor
+    }
+    public DataFragment(String internalDirPath) {
+        this.internalDirPath = internalDirPath;
     }
 
     public static DataFragment newInstance() {
@@ -42,13 +48,15 @@ public class DataFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_data, container, false);
     }
 
-    public void setup(AppCompatActivity activity, String internalDirPath) {
-        ViewGroup dataFilesLayout =  activity.findViewById(R.id.dataFilesLayout);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ViewGroup dataFilesLayout =  getView().findViewById(R.id.dataFilesLayout);
 
-        EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
+        EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
         ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
         for (String filePath : filePaths) {
-            FileEntryLayout fileEntryLayout = new FileEntryLayout(activity, filePath);
+            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)getActivity(), filePath);
             dataFilesLayout.addView(fileEntryLayout);
         }
     }

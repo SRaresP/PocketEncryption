@@ -15,11 +15,10 @@ public class PrimaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_primary);
 
-        DataFragment dataFragment = new DataFragment();
+        DataFragment dataFragment = new DataFragment("");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragment);
         fragmentTransaction.commitNow();
-        dataFragment.setup(this, "");
     }
 }
