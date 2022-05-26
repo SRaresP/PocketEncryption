@@ -35,7 +35,7 @@ public class CryptoHandler {
     private Cipher cipher;
     private SecretKey key;
     private IvParameterSpec iv;
-    private int CurrentBlockSize;
+    private final int CurrentBlockSize;
 
     private KeyStore keyStore;
     private final char[] passwordC;

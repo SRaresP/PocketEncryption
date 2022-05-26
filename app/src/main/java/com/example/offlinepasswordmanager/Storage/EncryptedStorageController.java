@@ -126,7 +126,7 @@ public class EncryptedStorageController extends StorageController {
     }
 
     public String get(final String fileName) throws NullPointerException, FileNotFoundException, IOException {
-        return get(fileName, encryptedStorageRoot.getAbsolutePath());
+        return get(fileName, "");
     }
 
     public void wipeEncryptedData() {
