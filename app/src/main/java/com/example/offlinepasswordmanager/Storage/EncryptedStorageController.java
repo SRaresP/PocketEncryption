@@ -75,6 +75,7 @@ public class EncryptedStorageController extends StorageController {
         Log.i(TAG, "Wrote to encrypted file: " + result);
     }
     //TODO: files are getting created in a weird filepath instead of directly inside the encrypted storage root
+    //TODO: now reading is broken, fix it
     public void add(final String fileName, final String fileContents, final String internalAppFolder)
             throws FileAlreadyExistsException, IOException {
         File folder = new File(encryptedStorageRoot.getAbsolutePath() + internalAppFolder);
@@ -97,7 +98,7 @@ public class EncryptedStorageController extends StorageController {
 
 
     public void add(final String fileName, final String fileContents) throws IOException {
-        add(fileName, fileContents, encryptedStorageRoot.getAbsolutePath());
+        add(fileName, fileContents, "");
     }
 
     public String get(final String fileName, final String folderToGetFrom) throws NullPointerException, FileNotFoundException, IOException {
