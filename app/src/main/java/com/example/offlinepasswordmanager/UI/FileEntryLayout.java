@@ -36,11 +36,11 @@ public class FileEntryLayout extends LinearLayoutCompat {
         entryNameTV.setTextSize(30);
         entryNameTV.setText(new File(filePath).getName());
 
+        //TODO: fix alignment of this type of layout, it's wonky for some reason
         if (new File(filePath).isDirectory()) {
             entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_folder_24));
 
             setOnClickListener(view -> {
-                //TODO: navigate to the folder specified by this FileEntryLayout
                 DataFragment dataFragment = new DataFragment(filePath.replaceAll(EncryptedStorageController.getInstance(activity).getEncryptedStorageRootPath(), ""));
                 FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
 
@@ -55,6 +55,8 @@ public class FileEntryLayout extends LinearLayoutCompat {
                 //TODO: start a new activity to view and edit this file if it is a text file
             });
         }
+
+        setPadding(10, 10, 10, 10);
 
         addView(entryTypeIV);
         addView(entryNameTV);

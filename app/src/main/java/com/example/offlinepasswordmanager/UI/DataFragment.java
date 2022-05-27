@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 
 //TODO: Add an "add" button somewhere
 public class DataFragment extends Fragment {
+
     private String internalDirPath;
 
     public DataFragment() {
@@ -52,12 +56,27 @@ public class DataFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ViewGroup dataFilesLayout =  getView().findViewById(R.id.dataFilesLayout);
+        TextView currentPathTV = getView().findViewById(R.id.dataTVCurrentPath);
+        currentPathTV.setText(internalDirPath);
 
         EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
         ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
         for (String filePath : filePaths) {
-            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)getActivity(), filePath);
+            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)requireActivity(), filePath);
             dataFilesLayout.addView(fileEntryLayout);
         }
+
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                String currentPath = currentPathTV.getText().toString();
+                DataFragment dataFragment = new DataFragment(currentPath.substring(0, currentPath.lastIndexOf("/")));
+                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
+                fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragment);
+                fragmentTransaction.commitNow();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), onBackPressedCallback);
     }
 }
