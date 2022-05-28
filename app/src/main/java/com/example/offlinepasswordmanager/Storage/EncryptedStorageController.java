@@ -151,9 +151,6 @@ public class EncryptedStorageController extends StorageController {
 
     public ArrayList<String> getFilePathsFrom(String internalDirPath) {
         File directory = new File(encryptedStorageRoot.getAbsolutePath() + internalDirPath);
-        if (!directory.mkdirs()) {
-            Log.e(TAG, "File passed to getFilenamesFrom() was not a directory");
-        }
         File[] files = directory.listFiles();
         if (files == null) {
             return null;

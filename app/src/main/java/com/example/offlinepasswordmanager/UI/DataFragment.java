@@ -62,7 +62,7 @@ public class DataFragment extends Fragment {
         EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
         ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
         for (String filePath : filePaths) {
-            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)requireActivity(), filePath);
+            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)requireActivity(), filePath, internalDirPath);
             dataFilesLayout.addView(fileEntryLayout);
         }
 

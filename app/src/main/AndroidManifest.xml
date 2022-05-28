@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.offlinepasswordmanager">
 
     <application
         android:allowBackup="true"
@@ -9,10 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OfflinePasswordManager">
         <activity
+            android:name=".UI.TextEditActivity"
+            android:exported="true" />
+        <activity
             android:name=".UI.DebugActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".UI.PrimaryActivity"
             android:exported="true">
@@ -21,7 +23,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
