@@ -20,6 +20,10 @@ The app's backbone is pretty much done now and can be used.
 
 -Define exception catching areas (throw them all out to the highest level to warn user of everything?)
 
+-Implement master account
+
+-Implement option to use internet temporarily to send recovery email?
+
 
 # Done:
 

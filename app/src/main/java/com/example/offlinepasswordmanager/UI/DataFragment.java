@@ -55,16 +55,8 @@ public class DataFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ViewGroup dataFilesLayout =  getView().findViewById(R.id.dataFilesLayout);
         TextView currentPathTV = getView().findViewById(R.id.dataTVCurrentPath);
         currentPathTV.setText(internalDirPath);
-
-        EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
-        ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
-        for (String filePath : filePaths) {
-            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)requireActivity(), filePath, internalDirPath);
-            dataFilesLayout.addView(fileEntryLayout);
-        }
 
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
@@ -78,5 +70,20 @@ public class DataFragment extends Fragment {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), onBackPressedCallback);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ViewGroup dataFilesLayout = getView().findViewById(R.id.dataFilesLayout);
+        dataFilesLayout.removeAllViews();
+
+        EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
+        ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
+
+        for (String filePath : filePaths) {
+            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)requireActivity(), filePath, internalDirPath);
+            dataFilesLayout.addView(fileEntryLayout);
+        }
     }
 }

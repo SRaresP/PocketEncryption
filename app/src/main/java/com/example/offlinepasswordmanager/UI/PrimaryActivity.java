@@ -10,15 +10,22 @@ import com.example.offlinepasswordmanager.R;
 
 public class PrimaryActivity extends AppCompatActivity {
 
+	private DataFragment dataFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_primary);
 
-        DataFragment dataFragment = new DataFragment("");
+        dataFragment = new DataFragment("");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragment);
         fragmentTransaction.commitNow();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 }

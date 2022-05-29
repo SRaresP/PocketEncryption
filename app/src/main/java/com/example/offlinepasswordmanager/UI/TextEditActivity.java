@@ -58,7 +58,6 @@ public class TextEditActivity extends AppCompatActivity {
 
 		exitB.setOnClickListener(view -> {
 			finish();
-			//TODO: refresh DataFragment after going back to it to replace the old file with the new one, maybe in the save method?
 		});
 
 	}
