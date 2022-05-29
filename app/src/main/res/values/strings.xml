@@ -26,4 +26,11 @@
     <string name="file_name">File Name:</string>
     <string name="exit">Exit</string>
     <string name="save">Save</string>
+    <string name="create_new_entry">Create new entry</string>
+    <string name="create_a_new">Create a new:</string>
+    <string name="text_file">Text file</string>
+    <string name="create_and_save">Create and save</string>
+    <string name="cancel">Cancel</string>
+    <string name="entry_name">Entry name:</string>
+    <string name="entry_content">Entry content:</string>
 </resources>

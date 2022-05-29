@@ -75,6 +75,34 @@ public class FileEntryLayout extends LinearLayoutCompat {
 		addView(entryNameTV);
 	}
 
+	public FileEntryLayout(@NonNull AppCompatActivity activity, final String currentPath) {
+		super(activity);
+
+		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
+
+		setOrientation(LinearLayoutCompat.HORIZONTAL);
+		setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+		setGravity(Gravity.CENTER);
+
+		ImageView entryTypeIV = new ImageView(activity);
+		entryTypeIV.setLayoutParams(new LinearLayoutCompat.LayoutParams(50, 50));
+		TextView entryNameTV = new TextView(activity);
+		entryNameTV.setLayoutParams(new LayoutParams(1, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+		entryNameTV.setTextSize(30);
+		entryNameTV.setText(R.string.create_new_entry);
+
+		entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_add_24));
+
+		setOnClickListener(view -> {
+			//TODO: start new activity to create file or folder
+		});
+
+		setPadding(10, 10, 10, 10);
+
+		addView(entryTypeIV);
+		addView(entryNameTV);
+	}
+
 	public FileEntryLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 	}
