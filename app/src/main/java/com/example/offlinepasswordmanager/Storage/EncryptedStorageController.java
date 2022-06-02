@@ -101,6 +101,14 @@ public class EncryptedStorageController extends StorageController {
         add(fileName, fileContents, "");
     }
 
+    public File createDirectory(final String fileName, final String internalAppFolder) throws IOException {
+        File folder = new File(encryptedStorageRoot.getAbsolutePath() + internalAppFolder, fileName);
+        if (!folder.mkdirs()) {
+            throw new IOException("Failed to create directory " + fileName + " inside " + internalAppFolder);
+        }
+        return folder;
+    }
+
     public String get(final String fileName, final String folderToGetFrom) throws NullPointerException, FileNotFoundException, IOException {
         File folder = new File(encryptedStorageRoot.getAbsolutePath() + folderToGetFrom);
         folder.mkdirs();

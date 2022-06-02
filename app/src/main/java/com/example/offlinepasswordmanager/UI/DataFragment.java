@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class DataFragment extends Fragment {
 
     private String internalDirPath;
+    private TextView currentPathTV;
 
     public DataFragment() {
         // Required empty public constructor
@@ -55,7 +56,7 @@ public class DataFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView currentPathTV = getView().findViewById(R.id.dataTVCurrentPath);
+        currentPathTV = getView().findViewById(R.id.dataTVCurrentPath);
         currentPathTV.setText(internalDirPath);
 
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
@@ -81,6 +82,8 @@ public class DataFragment extends Fragment {
         EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
         ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
 
+        FileEntryLayout createNewFEL = new FileEntryLayout((AppCompatActivity)requireActivity(), currentPathTV.getText().toString());
+        dataFilesLayout.addView(createNewFEL);
         for (String filePath : filePaths) {
             FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)requireActivity(), filePath, internalDirPath);
             dataFilesLayout.addView(fileEntryLayout);

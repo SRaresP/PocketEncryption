@@ -52,8 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="20sp"
-        android:enabled="false"/>
+        android:textSize="20sp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/crEntryContentTV"
@@ -88,11 +87,11 @@
             android:enabled="false"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/crCancelB"
+            android:id="@+id/crExitB"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel" />
+            android:text="@string/exit" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

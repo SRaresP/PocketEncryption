@@ -94,7 +94,9 @@ public class FileEntryLayout extends LinearLayoutCompat {
 		entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_add_24));
 
 		setOnClickListener(view -> {
-			//TODO: start new activity to create file or folder
+			Intent intent = new Intent(activity, CreationActivity.class);
+			intent.putExtra("InternalPath", currentPath);
+			activity.startActivity(intent);
 		});
 
 		setPadding(10, 10, 10, 10);

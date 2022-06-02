@@ -50,15 +50,14 @@ public class TextEditActivity extends AppCompatActivity {
 
 			try {
 				encryptedStorageController.add(fileNameET.getText().toString(), contentET.getText().toString(), currentPath);
+				Toast.makeText(this, "Saved!", Toast.LENGTH_LONG).show();
 			} catch (IOException e) {
 				Log.e(TAG, e.getMessage(), e);
 				Toast.makeText(this, "Something went wrong while saving your file. Contact the app developer.", Toast.LENGTH_LONG).show();
 			}
 		});
 
-		exitB.setOnClickListener(view -> {
-			finish();
-		});
+		exitB.setOnClickListener(view ->finish());
 
 	}
 }
