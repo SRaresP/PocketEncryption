@@ -6,21 +6,19 @@ The app's backbone is pretty much done now and can be used.
 
 # Currently working on:
 
--UI
+-Implementing master password
+
+-Improving UI
 
 # TODO:
 
--Input checking
+-Romanian translation
 
 -User warnings for everything that goes wrong (use Toasts? use a dedicated log inside UI? use popups?)
 
 -Use threading to ensure responsiveness of UI
 
 -Code cleanup and refactoring
-
--Define exception catching areas (throw them all out to the highest level to warn user of everything?)
-
--Implement master account
 
 -Implement option to use internet temporarily to send recovery email?
 
@@ -34,3 +32,5 @@ The app's backbone is pretty much done now and can be used.
 -Easy-use, encrypted file r/w utilities
 
 -Theming, partially
+
+-UI (most important components are in place)

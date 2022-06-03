@@ -53,8 +53,17 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/dataFilesLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dataDeleteSelectedB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="@string/delete_selected"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

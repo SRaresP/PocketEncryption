@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.IconCompat;
@@ -27,13 +28,15 @@ import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
 import java.io.File;
 
 public class FileEntryLayout extends LinearLayoutCompat {
+	private File file;
+
 	public FileEntryLayout(@NonNull Context context) {
 		super(context);
 	}
 
-	public FileEntryLayout(@NonNull AppCompatActivity activity, final String filePath, final String currentPath) {
+	public FileEntryLayout(@NonNull final AppCompatActivity activity, @NonNull final DataFragment dataFragment, final String filePath, final String currentPath) {
 		super(activity);
-		File file = new File(filePath);
+		file = new File(filePath);
 		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
 
 		setOrientation(LinearLayoutCompat.HORIZONTAL);
@@ -42,20 +45,31 @@ public class FileEntryLayout extends LinearLayoutCompat {
 
 		ImageView entryTypeIV = new ImageView(activity);
 		entryTypeIV.setLayoutParams(new LinearLayoutCompat.LayoutParams(50, 50));
+
 		TextView entryNameTV = new TextView(activity);
 		entryNameTV.setLayoutParams(new LayoutParams(1, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 		entryNameTV.setTextSize(30);
 		entryNameTV.setText(new File(filePath).getName());
+
+		AppCompatCheckBox checkBox = new AppCompatCheckBox(activity);
+		checkBox.setLayoutParams(new LinearLayoutCompat.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		checkBox.setOnClickListener(view -> {
+			if (checkBox.isChecked()) {
+				dataFragment.addToSelection(file);
+			} else {
+				dataFragment.removeFromSelection(file);
+			}
+		});
 
 		if (file.isDirectory()) {
 			entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_folder_24));
 
 			setOnClickListener(view -> {
 				String internalDirPath = filePath.replaceAll(encryptedStorageController.getEncryptedStorageRootPath(), "");
-				DataFragment dataFragment = new DataFragment(internalDirPath);
+				DataFragment dataFragmentNew = new DataFragment(internalDirPath);
 				FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
 
-				fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragment);
+				fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragmentNew);
 				fragmentTransaction.commitNow();
 			});
 		} else {
@@ -73,6 +87,7 @@ public class FileEntryLayout extends LinearLayoutCompat {
 
 		addView(entryTypeIV);
 		addView(entryNameTV);
+		addView(checkBox);
 	}
 
 	public FileEntryLayout(@NonNull AppCompatActivity activity, final String currentPath) {
@@ -86,6 +101,7 @@ public class FileEntryLayout extends LinearLayoutCompat {
 
 		ImageView entryTypeIV = new ImageView(activity);
 		entryTypeIV.setLayoutParams(new LinearLayoutCompat.LayoutParams(50, 50));
+
 		TextView entryNameTV = new TextView(activity);
 		entryNameTV.setLayoutParams(new LayoutParams(1, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 		entryNameTV.setTextSize(30);
@@ -113,5 +129,7 @@ public class FileEntryLayout extends LinearLayoutCompat {
 		super(context, attrs, defStyleAttr);
 	}
 
-
+	public File getFile() {
+		return file;
+	}
 }

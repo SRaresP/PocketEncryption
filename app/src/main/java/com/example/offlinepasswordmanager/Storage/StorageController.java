@@ -53,7 +53,7 @@ public class StorageController {
             if (f.isDirectory()) {
                 deleteDir(f);
             } else if (!f.delete()) {
-                Log.i(TAG, "Couldn't delete file.");
+                Log.i(TAG, "Couldn't delete file " + f.getName());
             }
         }
     }
@@ -61,7 +61,7 @@ public class StorageController {
     public void deleteDir(final File directory) {
         deleteDirContents(directory);
         if (!directory.delete()) {
-            Log.i(TAG, "Couldn't delete directory.");
+            Log.i(TAG, "Couldn't delete directory " + directory.getName());
         }
     }
 }

@@ -1,16 +1,16 @@
 package com.example.offlinepasswordmanager.UI;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +19,20 @@ import android.widget.TextView;
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.function.Consumer;
 
 //TODO: Add an "add" button somewhere
 public class DataFragment extends Fragment {
+    private static final String TAG = "DataFragment";
 
     private String internalDirPath;
     private TextView currentPathTV;
+    private AppCompatButton deleteSelectedB;
+    private LinkedList<File> selectedEntries;
+    private EncryptedStorageController encryptedStorageController;
 
     public DataFragment() {
         // Required empty public constructor
@@ -58,6 +65,9 @@ public class DataFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         currentPathTV = getView().findViewById(R.id.dataTVCurrentPath);
         currentPathTV.setText(internalDirPath);
+        deleteSelectedB = getView().findViewById(R.id.dataDeleteSelectedB);
+
+        encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
 
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
@@ -70,7 +80,29 @@ public class DataFragment extends Fragment {
                 fragmentTransaction.commitNow();
             }
         };
+
         requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), onBackPressedCallback);
+
+        deleteSelectedB.setOnClickListener(myView -> {
+            selectedEntries.forEach(new Consumer<File>() {
+                @Override
+                public void accept(File file) {
+                    if (file.isDirectory()) {
+                        encryptedStorageController.deleteDir(file);
+                    }
+                    else {
+                        if (!file.delete()) {
+                            Log.i(TAG, "Failed to delete file " + file.getName());
+                        }
+                    }
+                }
+            });
+
+            DataFragment dataFragmentNew = new DataFragment(internalDirPath);
+            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragmentNew);
+            fragmentTransaction.commit();
+        });
     }
 
     @Override
@@ -79,14 +111,23 @@ public class DataFragment extends Fragment {
         ViewGroup dataFilesLayout = getView().findViewById(R.id.dataFilesLayout);
         dataFilesLayout.removeAllViews();
 
-        EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
         ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
+
+        selectedEntries = new LinkedList<File>();
 
         FileEntryLayout createNewFEL = new FileEntryLayout((AppCompatActivity)requireActivity(), currentPathTV.getText().toString());
         dataFilesLayout.addView(createNewFEL);
         for (String filePath : filePaths) {
-            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)requireActivity(), filePath, internalDirPath);
+            FileEntryLayout fileEntryLayout = new FileEntryLayout((AppCompatActivity)requireActivity(), this, filePath, internalDirPath);
             dataFilesLayout.addView(fileEntryLayout);
         }
+    }
+
+    public void addToSelection(final File file) {
+        selectedEntries.add(file);
+    }
+
+    public void removeFromSelection(final File file) {
+        selectedEntries.remove(file);
     }
 }
