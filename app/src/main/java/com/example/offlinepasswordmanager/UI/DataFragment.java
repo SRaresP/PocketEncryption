@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
@@ -69,31 +70,29 @@ public class DataFragment extends Fragment {
 
         encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
 
-        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                String currentPath = currentPathTV.getText().toString();
-                DataFragment dataFragment = new DataFragment(currentPath.substring(0, currentPath.lastIndexOf("/")));
-                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        String currentPath = currentPathTV.getText().toString();
+        if (!currentPath.equals("")) {
+            OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    DataFragment dataFragment = new DataFragment(currentPath.substring(0, currentPath.lastIndexOf("/")));
+                    FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
 
-                fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragment);
-                fragmentTransaction.commitNow();
-            }
-        };
-
-        requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), onBackPressedCallback);
+                    fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragment);
+                    fragmentTransaction.commitNow();
+                }
+            };
+            requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), onBackPressedCallback);
+        }
 
         deleteSelectedB.setOnClickListener(myView -> {
-            selectedEntries.forEach(new Consumer<File>() {
-                @Override
-                public void accept(File file) {
-                    if (file.isDirectory()) {
-                        encryptedStorageController.deleteDir(file);
-                    }
-                    else {
-                        if (!file.delete()) {
-                            Log.i(TAG, "Failed to delete file " + file.getName());
-                        }
+            selectedEntries.forEach(file -> {
+                if (file.isDirectory()) {
+                    encryptedStorageController.deleteDir(file);
+                }
+                else {
+                    if (!file.delete()) {
+                        Log.i(TAG, "Failed to delete file " + file.getName());
                     }
                 }
             });
@@ -102,6 +101,8 @@ public class DataFragment extends Fragment {
             FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragmentNew);
             fragmentTransaction.commit();
+
+            Toast.makeText(requireActivity(), "Successfully deleted entries", Toast.LENGTH_LONG).show();
         });
     }
 

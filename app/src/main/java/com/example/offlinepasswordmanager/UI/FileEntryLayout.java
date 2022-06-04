@@ -64,7 +64,7 @@ public class FileEntryLayout extends LinearLayoutCompat {
 		if (file.isDirectory()) {
 			entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_folder_24));
 
-			setOnClickListener(view -> {
+			entryNameTV.setOnClickListener(view -> {
 				String internalDirPath = filePath.replaceAll(encryptedStorageController.getEncryptedStorageRootPath(), "");
 				DataFragment dataFragmentNew = new DataFragment(internalDirPath);
 				FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
@@ -75,7 +75,7 @@ public class FileEntryLayout extends LinearLayoutCompat {
 		} else {
 			entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_insert_drive_file_40));
 
-			setOnClickListener(view -> {
+			entryNameTV.setOnClickListener(view -> {
 				Intent intent = new Intent(activity, TextEditActivity.class);
 				intent.putExtra("FilePath", filePath);
 				intent.putExtra("CurrentPath", currentPath);

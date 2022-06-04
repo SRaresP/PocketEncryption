@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- All id's in this file should start with "wel" to denote the fragment -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".UI.WelcomeFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/welWelcomeTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/welMessageTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_message"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/welWelcomeTV" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/welPasswordTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/welPwdET"
+        android:text="@string/password"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/welPwdET" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/welPwdET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/welSetPwdB" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/welPwdWarningTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/password_warning"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/welSetPwdB" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/welSetPwdB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_this_password"
+        app:layout_constraintBottom_toTopOf="@id/welRepeatedTV"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/welMessageTV" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/welRepeatedTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/repeated_welcome"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

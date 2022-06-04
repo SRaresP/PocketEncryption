@@ -6,8 +6,6 @@ The app's backbone is pretty much done now and can be used.
 
 # Currently working on:
 
--Implementing master password
-
 -Improving UI
 
 # TODO:
@@ -22,6 +20,10 @@ The app's backbone is pretty much done now and can be used.
 
 -Implement option to use internet temporarily to send recovery email?
 
+-Set proper return values to facilitate bug hunting
+
+-Implement password reset
+
 
 # Done:
 
@@ -34,3 +36,5 @@ The app's backbone is pretty much done now and can be used.
 -Theming, partially
 
 -UI (most important components are in place)
+
+-Implemented master password
