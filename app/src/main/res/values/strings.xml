@@ -45,4 +45,8 @@
     <string name="login_error_advice">If you have never used this app before and you have not entered any of your data into it, you should try to clear your app data for this app using your settings application.</string>
     <string name="please_enter_your_password">Please enter your password below to get access to this application.</string>
     <string name="enter">Enter</string>
+    <string name="app_password">App password:</string>
+    <string name="update_password">Update password</string>
+    <string name="to_update_your_password_enter_your_current_password_here">To update your password, enter your current password here:</string>
+    <string name="enter_your_new_password_here">Enter your new password here:</string>
 </resources>

@@ -106,6 +106,7 @@ public class DataFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        //TODO: move all this to a new method called "update()" to allow keeping state when switching back from other fragments
         ViewGroup dataFilesLayout = getView().findViewById(R.id.dataFilesLayout);
         dataFilesLayout.removeAllViews();
 
