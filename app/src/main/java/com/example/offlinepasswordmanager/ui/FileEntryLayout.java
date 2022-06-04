@@ -1,10 +1,7 @@
-package com.example.offlinepasswordmanager.UI;
+package com.example.offlinepasswordmanager.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Icon;
-import android.media.Image;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -17,13 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.IconCompat;
-import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.offlinepasswordmanager.R;
-import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 
 import java.io.File;
 
@@ -93,8 +87,6 @@ public class FileEntryLayout extends LinearLayoutCompat {
 	public FileEntryLayout(@NonNull AppCompatActivity activity, final String currentPath) {
 		super(activity);
 
-		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
-
 		setOrientation(LinearLayoutCompat.HORIZONTAL);
 		setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		setGravity(Gravity.CENTER);
@@ -127,9 +119,5 @@ public class FileEntryLayout extends LinearLayoutCompat {
 
 	public FileEntryLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-	}
-
-	public File getFile() {
-		return file;
 	}
 }

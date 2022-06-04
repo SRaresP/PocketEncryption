@@ -9,7 +9,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".UI.DebugActivity">
+    tools:context=".ui.DebugActivity">
 
     <EditText
         android:id="@+id/debugEtName"

@@ -1,29 +1,18 @@
-package com.example.offlinepasswordmanager.Storage;
+package com.example.offlinepasswordmanager.storage;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
+import com.example.offlinepasswordmanager.cryptography.CryptoHandler;
 
-import com.example.offlinepasswordmanager.Cryptography.CryptoHandler;
-
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.NotDirectoryException;
-import java.security.InvalidParameterException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -67,7 +56,7 @@ public class EncryptedStorageController extends StorageController {
 	//the file name should be the name of the text within the app
 	//eg if we store an account, we would have "Steam account" as the name
 
-	public void setMasterPassword(Context context, String masterPassword) throws IOException {
+	public void setMasterPassword(final Context context, final String masterPassword) throws IOException {
 		masterPasswordFile = new File(context.getFilesDir().getAbsolutePath(), "mPass");
 
 		messageDigest.update(masterPassword.getBytes(StandardCharsets.UTF_8));
@@ -79,7 +68,7 @@ public class EncryptedStorageController extends StorageController {
 		fileOutputStream.close();
 	}
 
-	public boolean checkMasterPassword(String masterPassword) throws IOException {
+	public boolean checkMasterPassword(final String masterPassword) throws IOException {
 		if (masterPasswordFile == null) {
 			throw new FileNotFoundException("Hash file was not found.");
 		}
@@ -113,7 +102,7 @@ public class EncryptedStorageController extends StorageController {
 	}
 
 	public void add(final String fileName, final String fileContents, final String internalAppFolder)
-			throws FileAlreadyExistsException, IOException {
+			throws IOException {
 		File folder = new File(encryptedStorageRoot.getAbsolutePath() + internalAppFolder);
 		folder.mkdirs();
 		File file = findFile(folder, fileName, false);
@@ -142,7 +131,7 @@ public class EncryptedStorageController extends StorageController {
 		return folder;
 	}
 
-	public String get(final String fileName, final String folderToGetFrom) throws NullPointerException, FileNotFoundException, IOException {
+	public String get(final String fileName, final String folderToGetFrom) throws NullPointerException, IOException {
 		File folder = new File(encryptedStorageRoot.getAbsolutePath() + folderToGetFrom);
 		folder.mkdirs();
 		File targetFile = findFile(folder, fileName, false);
@@ -166,7 +155,7 @@ public class EncryptedStorageController extends StorageController {
 		return cryptoHandler.decrypt(fileContents);
 	}
 
-	public String get(final String fileName) throws NullPointerException, FileNotFoundException, IOException {
+	public String get(final String fileName) throws NullPointerException, IOException {
 		return get(fileName, "");
 	}
 
@@ -174,7 +163,7 @@ public class EncryptedStorageController extends StorageController {
 		deleteDirContents(encryptedStorageRoot);
 	}
 
-	public List<String> getFilenamesFrom(String internalDirPath) {
+	public List<String> getFilenamesFrom(final String internalDirPath) {
 		File directory = new File(encryptedStorageRoot.getAbsolutePath() + internalDirPath);
 		if (!directory.mkdirs()) {
 			Log.e(TAG, "File passed to getFilenamesFrom() was not a directory");
@@ -190,7 +179,7 @@ public class EncryptedStorageController extends StorageController {
 		return filenames;
 	}
 
-	public ArrayList<String> getFilePathsFrom(String internalDirPath) {
+	public ArrayList<String> getFilePathsFrom(final String internalDirPath) {
 		File directory = new File(encryptedStorageRoot.getAbsolutePath() + internalDirPath);
 		File[] files = directory.listFiles();
 		if (files == null) {

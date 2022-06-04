@@ -1,9 +1,9 @@
-package com.example.offlinepasswordmanager.Cryptography;
+package com.example.offlinepasswordmanager.cryptography;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.example.offlinepasswordmanager.Storage.StorageController;
+import com.example.offlinepasswordmanager.storage.StorageController;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,8 +37,6 @@ public class CryptoHandler {
 
     private KeyStore keyStore;
     private final char[] passwordC;
-
-    private StorageController storageController;
 
     protected void generate(final boolean generateKey, final boolean generateIv, final Context context)
             throws CertificateException,
@@ -82,7 +80,7 @@ public class CryptoHandler {
         String passwordS = "_somepassword_";
         passwordC = new char[passwordS.length()];
         passwordS.getChars(0, passwordS.length(), passwordC, 0);
-        storageController = new StorageController();
+        StorageController storageController = new StorageController();
 
         boolean generateKey = false;
         boolean generateIv = false;
@@ -125,7 +123,6 @@ public class CryptoHandler {
         }
 
         CurrentBlockSize = cipher.getBlockSize();
-        int i = 0;
     }
 
     public static CryptoHandler getInstance(final Context context) {
@@ -168,8 +165,7 @@ public class CryptoHandler {
             cipher.init(Cipher.DECRYPT_MODE, key, iv);
             byte[] resultC = cipher.doFinal(toDecrypt);
             resultC = fromMultipleOfSixteen(resultC);
-            String resultS = new String(resultC, StandardCharsets.UTF_8);
-            return resultS;
+            return new String(resultC, StandardCharsets.UTF_8);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             return null;

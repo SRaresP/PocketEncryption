@@ -1,4 +1,4 @@
-package com.example.offlinepasswordmanager.UI;
+package com.example.offlinepasswordmanager.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.offlinepasswordmanager.R;
-import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 
 import java.io.IOException;
 
@@ -48,6 +48,7 @@ public class CreationActivity extends AppCompatActivity {
 
 		cancelButton.setOnClickListener(view -> finish());
 		saveButton.setOnClickListener(view -> {
+
 			if (fileNameET.getText().toString().equals("")) {
 				Toast.makeText(this, "Give the entry a name, please", Toast.LENGTH_LONG).show();
 				return;

@@ -1,11 +1,9 @@
-package com.example.offlinepasswordmanager.UI;
+package com.example.offlinepasswordmanager.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 
 import com.example.offlinepasswordmanager.R;
@@ -39,10 +37,5 @@ public class PrimaryActivity extends AppCompatActivity {
             entriesFrTransaction.replace(R.id.primaryWorkLayout, dataFragmentFresh);
             entriesFrTransaction.commit();
         });
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
     }
 }

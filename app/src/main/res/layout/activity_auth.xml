@@ -7,6 +7,6 @@
     android:id="@+id/authLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.AuthActivity">
+    tools:context=".ui.AuthActivity">
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".UI.SettingsFragment">
+    tools:context=".ui.SettingsFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/setCurrentPwdTV"

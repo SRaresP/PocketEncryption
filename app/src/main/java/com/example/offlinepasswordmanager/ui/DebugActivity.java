@@ -1,4 +1,4 @@
-package com.example.offlinepasswordmanager.UI;
+package com.example.offlinepasswordmanager.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -9,10 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.offlinepasswordmanager.Cryptography.CryptoHandler;
 import com.example.offlinepasswordmanager.R;
-import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
-import com.example.offlinepasswordmanager.Storage.StorageController;
+import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.storage.StorageController;
 
 public class DebugActivity extends AppCompatActivity {
 

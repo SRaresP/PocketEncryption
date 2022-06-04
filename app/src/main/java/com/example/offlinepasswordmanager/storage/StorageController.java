@@ -1,16 +1,11 @@
-package com.example.offlinepasswordmanager.Storage;
+package com.example.offlinepasswordmanager.storage;
 
 import android.util.Log;
 
 import java.io.File;
-import java.nio.file.NotDirectoryException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class StorageController {
     private static final String TAG = "StorageController";
-
-    private static StorageController instance;
 
     public StorageController() {}
 

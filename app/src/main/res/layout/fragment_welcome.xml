@@ -9,7 +9,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".UI.WelcomeFragment">
+    tools:context=".ui.WelcomeFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/welWelcomeTV"

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OfflinePasswordManager">
         <activity
-            android:name=".UI.AuthActivity"
+            android:name=".ui.AuthActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,16 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.CreationActivity"
+            android:name=".ui.CreationActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.TextEditActivity"
+            android:name=".ui.TextEditActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.DebugActivity"
+            android:name=".ui.DebugActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.PrimaryActivity"
+            android:name=".ui.PrimaryActivity"
             android:exported="true">
         </activity>
     </application>

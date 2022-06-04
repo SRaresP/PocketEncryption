@@ -7,7 +7,7 @@
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".UI.CreationActivity">
+    tools:context=".ui.CreationActivity">
 
     <TextView
         android:id="@+id/crCreateNewTV"

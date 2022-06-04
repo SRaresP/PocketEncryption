@@ -1,4 +1,4 @@
-package com.example.offlinepasswordmanager.UI;
+package com.example.offlinepasswordmanager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -18,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.offlinepasswordmanager.R;
-import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 
 import java.io.IOException;
 
@@ -53,7 +52,6 @@ public class LoginFragment extends Fragment {
 		FragmentActivity activity = requireActivity();
 		AppCompatButton enterB = activity.findViewById(R.id.logEnterB);
 		AppCompatEditText editText = activity.findViewById(R.id.logPwdET);
-		AppCompatTextView warningTV = activity.findViewById(R.id.logWarningTV);
 
 		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
 

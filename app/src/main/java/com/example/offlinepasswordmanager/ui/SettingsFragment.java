@@ -1,4 +1,4 @@
-package com.example.offlinepasswordmanager.UI;
+package com.example.offlinepasswordmanager.ui;
 
 import android.os.Bundle;
 
@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.offlinepasswordmanager.R;
-import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 
 import java.io.IOException;
 
@@ -65,6 +65,8 @@ public class SettingsFragment extends Fragment {
 				}
 				String newPwd = newPwdET.getText().toString();
 				encryptedStorageController.setMasterPassword(fragmentActivity, newPwd);
+				currentPwdET.setText("");
+				newPwdET.setText("");
 				Toast.makeText(fragmentActivity, "New password set", Toast.LENGTH_LONG).show();
 			} catch (IOException e) {
 				Log.e(TAG, e.getMessage(), e);

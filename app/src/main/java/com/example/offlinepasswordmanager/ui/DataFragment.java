@@ -1,4 +1,4 @@
-package com.example.offlinepasswordmanager.UI;
+package com.example.offlinepasswordmanager.ui;
 
 import android.os.Bundle;
 
@@ -18,19 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.offlinepasswordmanager.R;
-import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.function.Consumer;
 
 public class DataFragment extends Fragment {
     private static final String TAG = "DataFragment";
 
     private String internalDirPath;
     private TextView currentPathTV;
-    private AppCompatButton deleteSelectedB;
     private LinkedList<File> selectedEntries;
     private EncryptedStorageController encryptedStorageController;
 
@@ -62,7 +60,7 @@ public class DataFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         currentPathTV = getView().findViewById(R.id.dataTVCurrentPath);
         currentPathTV.setText(internalDirPath);
-        deleteSelectedB = getView().findViewById(R.id.dataDeleteSelectedB);
+        AppCompatButton deleteSelectedB = getView().findViewById(R.id.dataDeleteSelectedB);
 
         encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
 
@@ -111,7 +109,7 @@ public class DataFragment extends Fragment {
 
         ArrayList<String> filePaths = encryptedStorageController.getFilePathsFrom(internalDirPath);
 
-        selectedEntries = new LinkedList<File>();
+        selectedEntries = new LinkedList<>();
 
         FileEntryLayout createNewFEL = new FileEntryLayout((AppCompatActivity)requireActivity(), currentPathTV.getText().toString());
         dataFilesLayout.addView(createNewFEL);
