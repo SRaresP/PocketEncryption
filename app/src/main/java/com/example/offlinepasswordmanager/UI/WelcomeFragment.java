@@ -30,11 +30,8 @@ public class WelcomeFragment extends Fragment {
 		// Required empty public constructor
 	}
 
-	public static WelcomeFragment newInstance(String param1, String param2) {
-		WelcomeFragment fragment = new WelcomeFragment();
-		Bundle args = new Bundle();
-		fragment.setArguments(args);
-		return fragment;
+	public static WelcomeFragment newInstance() {
+		return new WelcomeFragment();
 	}
 
 	@Override

@@ -43,10 +43,7 @@ public class DataFragment extends Fragment {
     }
 
     public static DataFragment newInstance() {
-        DataFragment fragment = new DataFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new DataFragment();
     }
 
     @Override
