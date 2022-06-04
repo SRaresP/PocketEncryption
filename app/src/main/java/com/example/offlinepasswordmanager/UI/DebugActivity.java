@@ -14,8 +14,6 @@ import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.Storage.EncryptedStorageController;
 import com.example.offlinepasswordmanager.Storage.StorageController;
 
-//TODO: Implement UI
-//TODO: Warn user whenever something goes wrong
 public class DebugActivity extends AppCompatActivity {
 
     private static final String TAG = "DebugActivity";

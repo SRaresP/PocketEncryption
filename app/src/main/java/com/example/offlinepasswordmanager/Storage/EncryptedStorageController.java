@@ -77,8 +77,6 @@ public class EncryptedStorageController extends StorageController {
 		fileOutputStream.write(hashedPassword);
 		fileOutputStream.flush();
 		fileOutputStream.close();
-		//TODO: Remove this debug log
-		Log.i(TAG, "Wrote to hash file: " + new String(hashedPassword, StandardCharsets.UTF_8));
 	}
 
 	public boolean checkMasterPassword(String masterPassword) throws IOException {
@@ -94,8 +92,6 @@ public class EncryptedStorageController extends StorageController {
 			byteArrayOutputStream.write(input);
 		}
 		byte[] hashedFileContents = byteArrayOutputStream.toByteArray();
-		//TODO: Remove this debug log
-		Log.i(TAG, "Read from hash file: " + new String(hashedFileContents, StandardCharsets.UTF_8));
 
 		messageDigest.update(masterPassword.getBytes(StandardCharsets.UTF_8));
 		byte[] hashedPassword = messageDigest.digest();
@@ -132,8 +128,6 @@ public class EncryptedStorageController extends StorageController {
 		fileOutputStream.write(encFileContents);
 		fileOutputStream.flush();
 		fileOutputStream.close();
-		//TODO: Remove this debug log
-		Log.i(TAG, "Wrote to encrypted file: " + new String(encFileContents, StandardCharsets.UTF_8));
 	}
 
 	public void add(final String fileName, final String fileContents) throws IOException {
@@ -169,8 +163,6 @@ public class EncryptedStorageController extends StorageController {
 
 		fileInputStream.close();
 		byteArrayOutputStream.close();
-		//TODO: Remove this debug log
-		Log.i(TAG, "Read from encrypted file: " + new String(fileContents));
 		return cryptoHandler.decrypt(fileContents);
 	}
 

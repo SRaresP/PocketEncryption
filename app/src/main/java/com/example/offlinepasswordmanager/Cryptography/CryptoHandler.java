@@ -28,8 +28,6 @@ public class CryptoHandler {
     private static final String keyAlias = "AESStringsEncryptionKey";
     private static final String ivAlias = "AESStringsEncryptionIv";
     private static final String keyStoreFileName = "keystorage";
-    //TODO: decide whether "paddingCharacter" needs to be kept
-    private static final char paddingCharacter = 0;
     private static CryptoHandler instance;
 
     private Cipher cipher;

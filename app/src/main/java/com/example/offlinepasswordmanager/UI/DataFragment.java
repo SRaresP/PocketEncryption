@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-//TODO: Add an "add" button somewhere
 public class DataFragment extends Fragment {
     private static final String TAG = "DataFragment";
 

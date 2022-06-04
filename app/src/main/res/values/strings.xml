@@ -1,4 +1,6 @@
 <resources>
+    <!-- TODO: translate all of these -->
+    <!-- TODO: convert all Toast strings to strings from this file, to be able to translate them -->
     <string name="app_name">Pocket Encryption</string>
     <string name="do_stuff">Do stuff</string>
     <string name="password_name">Password name</string>

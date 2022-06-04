@@ -73,8 +73,5 @@ public class LoginFragment extends Fragment {
 				Toast.makeText(activity, "Could not find the file containing your set password", Toast.LENGTH_LONG).show();
 			}
 		});
-
-		//TODO: DELETE THIS
-		warningTV.setOnClickListener(myView -> encryptedStorageController.wipeMasterPassword());
 	}
 }
