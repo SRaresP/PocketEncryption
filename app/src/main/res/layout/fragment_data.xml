@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="10dp"
     tools:context=".ui.DataFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -50,20 +50,25 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </HorizontalScrollView>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/dataFilesLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/dataFilesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/dataDeleteSelectedB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:text="@string/delete_selected"/>
+        android:text="@string/delete_selected" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

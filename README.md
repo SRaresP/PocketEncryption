@@ -21,6 +21,8 @@ The app's backbone is pretty much done now and can be used. Version 1.0 is comin
 
 # Done:
 
+-Generated release v0.5 for closed testing
+
 -Implemented easy-to-use encryption utilities using modern algorithms
 
 -Encryption key secure storage using the Android Key Store
