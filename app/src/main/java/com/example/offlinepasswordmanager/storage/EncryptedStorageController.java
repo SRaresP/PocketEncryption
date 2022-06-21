@@ -30,6 +30,8 @@ public class EncryptedStorageController extends StorageController {
 	private final CryptoHandler cryptoHandler;
 	private final MessageDigest messageDigest;
 
+	//TODO: move most of this to separate concurrent threads
+
 	private EncryptedStorageController(final Context context) throws NoSuchAlgorithmException {
 		super();
 		encryptedStorageRoot = new File(context.getFilesDir().getAbsolutePath() + EncryptedStorageFolderPath);
