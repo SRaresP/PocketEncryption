@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:gravity="top"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".ui.CreationActivity">
@@ -44,15 +44,15 @@
         android:layout_height="wrap_content"
         android:labelFor="@id/crEntryNameET"
         android:text="@string/entry_name"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/crEntryNameET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20sp"/>
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/crEntryContentTV"
@@ -60,17 +60,16 @@
         android:layout_height="wrap_content"
         android:labelFor="@+id/crEntryContentET"
         android:text="@string/entry_content"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/crEntryContentET"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:enabled="false"
         android:textAlignment="textStart"
-        android:textSize="20sp"
-        android:enabled="false"/>
+        android:textSize="20sp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -83,8 +82,8 @@
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/create_and_save"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:text="@string/create_and_save" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/crExitB"

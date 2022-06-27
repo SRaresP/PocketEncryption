@@ -5,28 +5,31 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.util.Log;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.offlinepasswordmanager.PocketEncryptionApp;
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.ui.custom.LoadingView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class AuthActivity extends AppCompatActivity {
+	private static final String TAG = "AuthActivity";
 
 	private ProgressBar loadingPB;
 	private TextView loadingTV;
 	private LinearLayoutCompat authLayout;
 
-	private void finishSetup(EncryptedStorageController encryptedStorageController) {
+	private void finishSetup(EncryptedStorageController encryptedStorageController, LoadingView loadingView) {
 		Fragment fragment;
 		if (encryptedStorageController.masterPasswordFileExists()) {
 			fragment = new LoginFragment();
@@ -34,12 +37,11 @@ public class AuthActivity extends AppCompatActivity {
 			fragment = new WelcomeFragment();
 		}
 
-		authLayout.removeView(loadingPB);
-		authLayout.removeView(loadingTV);
-
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.authLayout, fragment);
 		fragmentTransaction.commit();
+
+		loadingView.terminate();
 	}
 
 	@Override
@@ -49,21 +51,12 @@ public class AuthActivity extends AppCompatActivity {
 
 		PocketEncryptionApp pocketEncryptionApp = PocketEncryptionApp.getInstance();
 
-		//TODO: tidy this up nicely
-		authLayout = findViewById(R.id.authLayout);
-		loadingPB = new ProgressBar(this);
-		loadingPB.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-		loadingTV = new TextView(this);
-		loadingTV.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-		loadingTV.setText(R.string.initialising_encryption_handler);
-		loadingTV.setTextSize(20);
-		authLayout.addView(loadingPB);
-		authLayout.addView(loadingTV);
+		LoadingView loadingView = new LoadingView(findViewById(R.id.authLayout), this, getString(R.string.initialising_encryption_handler));
 
 		pocketEncryptionApp.getExecutorService().execute(() -> {
-			EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(AuthActivity.this);
+			EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(this);
 			pocketEncryptionApp.getMainThreadHandler().post(() -> {
-				finishSetup(encryptedStorageController);
+				finishSetup(encryptedStorageController, loadingView);
 			});
 		});
 	}

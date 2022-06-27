@@ -8,8 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.PrimaryActivity"
-    android:padding="10dp">
+    android:padding="10dp"
+    tools:context=".ui.PrimaryActivity">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/primaryNavView"
@@ -21,13 +21,6 @@
             android:id="@+id/primaryNavButtonLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/primaryNavProfileB"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_person_24" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/primaryNavEntriesB"
