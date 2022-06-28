@@ -1,6 +1,4 @@
 <resources>
-    <!-- TODO: translate all of these -->
-    <!-- TODO: convert all Toast strings to strings from this file, to be able to translate them -->
     <string name="app_name">Pocket Encryption</string>
     <string name="do_stuff">Do stuff</string>
     <string name="password_name">Password name</string>
@@ -16,13 +14,9 @@
     <string name="clear_all_data">Clear All Data</string>
     <string name="name">Name</string>
     <string name="text">Text</string>
-    <string name="folder">Folder</string>
+    <string name="folder" translatable="false">Folder</string>
     <string name="read_from_folder">Read from folder</string>
     <string name="write_to_folder">Write to folder</string>
-    <string name="title_activity_data">DataActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="current_path">Current path:</string>
     <string name="file_name">File Name:</string>
     <string name="exit">Exit</string>
@@ -67,7 +61,7 @@
     <string name="could_not_find_the_file_containing_your_set_password">Could not find the file containing your set password</string>
     <string name="understood">Understood</string>
     <string name="password_set">Password set</string>
-    <string name="failed_to_open_file_to_read_from">Failed to open file to read from, going back to previous activity</string>
+    <string name="failed_to_open_file_to_read_from">Failed to open file to read from, going back</string>
     <string name="saved">Saved!</string>
     <string name="could_not_save_your_file">Could not save your file</string>
     <string name="could_not_set_your_password">Could not set your password</string>

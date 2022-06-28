@@ -10,16 +10,14 @@ The app's backbone is pretty much done now and can be used. Version 1.0 is comin
 
 # TODO:
 
--Romanian translation
-
 -Code cleanup and refactoring
 
 -Implement option to use internet temporarily to send recovery email?
 
--Set proper return values to facilitate bug hunting
-
 
 # Done:
+
+-Romanian translation
 
 -Generated release v0.5 for closed testing
 
