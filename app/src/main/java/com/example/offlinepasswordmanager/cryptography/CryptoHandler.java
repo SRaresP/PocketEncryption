@@ -29,7 +29,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class CryptoHandler {
-	private static final String TAG = "CRYPTOHANDLER";
+	private static final String TAG = "CryptoHandler";
 	private static final String keyAlias = "AESStringsEncryptionKey";
 	private static final String ivAlias = "AESStringsEncryptionIv";
 	private static final String keyStoreFileName = "keystorage";

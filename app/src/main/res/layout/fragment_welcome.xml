@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- All id's in this file should start with "wel" to denote the fragment -->
-<!-- TODO: move all the help text to a different section -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

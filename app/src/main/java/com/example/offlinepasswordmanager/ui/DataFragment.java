@@ -107,7 +107,7 @@ public class DataFragment extends Fragment {
             fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragmentNew);
             fragmentTransaction.commit();
 
-            Toast.makeText(requireActivity(), "Successfully deleted entries", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireActivity(), R.string.successfully_deleted_entries, Toast.LENGTH_LONG).show();
         });
     }
 

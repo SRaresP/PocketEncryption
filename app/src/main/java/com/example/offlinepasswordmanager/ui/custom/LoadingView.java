@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 public class LoadingView {
+	private final String TAG = "LoadingView";
 	private final ViewGroup layoutToAddTo;
 	private final LinearLayoutCompat containerLayout;
 	private final View[] children;

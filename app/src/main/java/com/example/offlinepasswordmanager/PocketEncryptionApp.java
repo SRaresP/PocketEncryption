@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class PocketEncryptionApp extends Application {
+	private final String TAG = "PocketEncryptionApp";
 	private static PocketEncryptionApp pocketEncryptionApp;
 
 	private final ExecutorService executorService = Executors.newFixedThreadPool(4);

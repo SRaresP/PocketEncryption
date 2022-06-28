@@ -39,7 +39,7 @@ public class TextEditActivity extends AppCompatActivity {
 			contentET.setText(encryptedStorageController.get(file.getName(), currentPath));
 		} catch (IOException e) {
 			Log.e(TAG, e.getMessage(), e);
-			Toast.makeText(this, "Failed to open file to read from, going back to previous activity", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.failed_to_open_file_to_read_from, Toast.LENGTH_LONG).show();
 			finish();
 		}
 
@@ -50,10 +50,10 @@ public class TextEditActivity extends AppCompatActivity {
 
 			try {
 				encryptedStorageController.add(fileNameET.getText().toString(), contentET.getText().toString(), currentPath);
-				Toast.makeText(this, "Saved!", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show();
 			} catch (IOException e) {
 				Log.e(TAG, e.getMessage(), e);
-				Toast.makeText(this, "Something went wrong while saving your file. Contact the app developer.", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.could_not_save_your_file, Toast.LENGTH_LONG).show();
 			}
 		});
 

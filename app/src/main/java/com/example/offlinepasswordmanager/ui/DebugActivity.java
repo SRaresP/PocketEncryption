@@ -14,7 +14,6 @@ import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 import com.example.offlinepasswordmanager.storage.StorageController;
 
 public class DebugActivity extends AppCompatActivity {
-
     private static final String TAG = "DebugActivity";
 
     @Override

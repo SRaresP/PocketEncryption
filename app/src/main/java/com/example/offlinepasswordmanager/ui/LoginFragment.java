@@ -25,7 +25,6 @@ import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 import java.io.IOException;
 
 public class LoginFragment extends Fragment {
-
 	private static final String TAG = "LoginFragment";
 
 	public LoginFragment() {
@@ -63,16 +62,16 @@ public class LoginFragment extends Fragment {
 			String inputPass = editText.getText().toString();
 			try {
 				if (encryptedStorageController.checkMasterPassword(inputPass)) {
-					Toast.makeText(activity, "Password accepted", Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity, R.string.password_accepted, Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(activity, PrimaryActivity.class);
 					startActivity(intent);
 				}
 				else {
-					Toast.makeText(activity, "Password rejected", Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity, R.string.password_rejected, Toast.LENGTH_SHORT).show();
 				}
 			} catch (IOException e) {
 				Log.e(TAG, e.getMessage(), e);
-				Toast.makeText(activity, "Could not find the file containing your set password", Toast.LENGTH_LONG).show();
+				Toast.makeText(activity, R.string.could_not_find_the_file_containing_your_set_password, Toast.LENGTH_LONG).show();
 			}
 		});
 
@@ -80,7 +79,7 @@ public class LoginFragment extends Fragment {
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
 			alertDialogBuilder
 					.setMessage(R.string.login_error_advice)
-					.setCancelable(true).setPositiveButton("Understood", (dialogInterface, i) -> dialogInterface.dismiss())
+					.setCancelable(true).setPositiveButton(R.string.understood, (dialogInterface, i) -> dialogInterface.dismiss())
 					.show();
 		});
 	}

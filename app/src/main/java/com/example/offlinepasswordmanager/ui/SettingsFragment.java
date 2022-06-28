@@ -20,7 +20,6 @@ import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 import java.io.IOException;
 
 public class SettingsFragment extends Fragment {
-
 	private static final String TAG = "SettingsFragment";
 
 	public SettingsFragment() {
@@ -59,17 +58,17 @@ public class SettingsFragment extends Fragment {
 			String currentPwd = currentPwdET.getText().toString();
 			try {
 				if (!encryptedStorageController.checkMasterPassword(currentPwd)) {
-					Toast.makeText(fragmentActivity, "Incorrect current password", Toast.LENGTH_LONG).show();
+					Toast.makeText(fragmentActivity, R.string.password_rejected, Toast.LENGTH_LONG).show();
 					return;
 				}
 				String newPwd = newPwdET.getText().toString();
 				encryptedStorageController.setMasterPassword(fragmentActivity, newPwd);
 				currentPwdET.setText("");
 				newPwdET.setText("");
-				Toast.makeText(fragmentActivity, "New password set", Toast.LENGTH_LONG).show();
+				Toast.makeText(fragmentActivity, R.string.password_set, Toast.LENGTH_LONG).show();
 			} catch (IOException e) {
 				Log.e(TAG, e.getMessage(), e);
-				Toast.makeText(fragmentActivity, "Can't find the current password", Toast.LENGTH_LONG).show();
+				Toast.makeText(fragmentActivity, R.string.could_not_modify_password, Toast.LENGTH_LONG).show();
 			}
 		});
 	}
