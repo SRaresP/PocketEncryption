@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.ui.custom.LoadingView;
 
 import java.io.File;
 
@@ -59,17 +60,19 @@ public class FileEntryLayout extends LinearLayoutCompat {
 			entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_folder_24));
 
 			entryNameTV.setOnClickListener(view -> {
+				new LoadingView((ViewGroup)getParent(), getContext(), "Entering folder", this, false).show();
 				String internalDirPath = filePath.replaceAll(encryptedStorageController.getEncryptedStorageRootPath(), "");
 				DataFragment dataFragmentNew = new DataFragment(internalDirPath);
 				FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
 
 				fragmentTransaction.replace(R.id.primaryWorkLayout, dataFragmentNew);
-				fragmentTransaction.commitNow();
+				fragmentTransaction.commit();
 			});
 		} else {
 			entryTypeIV.setImageDrawable(AppCompatResources.getDrawable(activity, R.drawable.ic_baseline_insert_drive_file_40));
 
 			entryNameTV.setOnClickListener(view -> {
+				new LoadingView((ViewGroup)getParent(), getContext(), "Loading editor", this, false).show();
 				Intent intent = new Intent(activity, TextEditActivity.class);
 				intent.putExtra("FilePath", filePath);
 				intent.putExtra("CurrentPath", currentPath);
@@ -104,6 +107,7 @@ public class FileEntryLayout extends LinearLayoutCompat {
 		setOnClickListener(view -> {
 			Intent intent = new Intent(activity, CreationActivity.class);
 			intent.putExtra("InternalPath", currentPath);
+			new LoadingView((ViewGroup)getParent(), getContext(), "Loading creator", this, false).show();
 			activity.startActivity(intent);
 		});
 

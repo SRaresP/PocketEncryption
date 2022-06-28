@@ -1,7 +1,6 @@
 package com.example.offlinepasswordmanager.cryptography;
 
 import android.content.Context;
-import android.telecom.Call;
 import android.util.Log;
 
 import com.example.offlinepasswordmanager.PocketEncryptionApp;
@@ -21,7 +20,6 @@ import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import javax.crypto.Cipher;
