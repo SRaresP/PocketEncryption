@@ -1,5 +1,7 @@
 package com.example.offlinepasswordmanager.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -52,6 +55,7 @@ public class LoginFragment extends Fragment {
 		FragmentActivity activity = requireActivity();
 		AppCompatButton enterB = activity.findViewById(R.id.logEnterB);
 		AppCompatEditText editText = activity.findViewById(R.id.logPwdET);
+		AppCompatImageButton helpB = activity.findViewById(R.id.logHelpB);
 
 		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
 
@@ -70,6 +74,14 @@ public class LoginFragment extends Fragment {
 				Log.e(TAG, e.getMessage(), e);
 				Toast.makeText(activity, "Could not find the file containing your set password", Toast.LENGTH_LONG).show();
 			}
+		});
+
+		helpB.setOnClickListener(myView -> {
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+			alertDialogBuilder
+					.setMessage(R.string.login_error_advice)
+					.setCancelable(true).setPositiveButton("Understood", (dialogInterface, i) -> dialogInterface.dismiss())
+					.show();
 		});
 	}
 }

@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.offlinepasswordmanager.PocketEncryptionApp;
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 
@@ -57,9 +58,9 @@ public class DataFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        currentPathTV = getView().findViewById(R.id.dataTVCurrentPath);
+        currentPathTV = view.findViewById(R.id.dataTVCurrentPath);
         currentPathTV.setText(internalDirPath);
-        AppCompatButton deleteSelectedB = getView().findViewById(R.id.dataDeleteSelectedB);
+        AppCompatButton deleteSelectedB = view.findViewById(R.id.dataDeleteSelectedB);
 
         encryptedStorageController = EncryptedStorageController.getInstance(getActivity());
 
@@ -77,6 +78,16 @@ public class DataFragment extends Fragment {
                 }
             };
             requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), onBackPressedCallback);
+        }
+        else {
+            OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    requireActivity().moveTaskToBack(true);
+                    remove();
+                }
+            };
+            requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
         }
 
         deleteSelectedB.setOnClickListener(myView -> {

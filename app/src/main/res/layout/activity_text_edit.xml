@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- All id's in this file should start with "edit" to denote the activity -->
-<!-- TODO: make sure the editing and creation activities maintain their buttons on screen even when dealing with huge text -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

@@ -20,14 +20,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/please_enter_your_password"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/logPasswordTV"
-        app:layout_constraintTop_toBottomOf="@id/logWelcomeTV" />
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/logPasswordTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,12 +57,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logInputLayout" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/logWarningTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login_error_advice"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/logHelpB"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/ic_baseline_help_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

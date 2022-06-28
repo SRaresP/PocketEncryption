@@ -1,5 +1,7 @@
 package com.example.offlinepasswordmanager.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,11 +53,19 @@ public class WelcomeFragment extends Fragment {
 		FragmentActivity activity = requireActivity();
 		AppCompatButton setPwdB = activity.findViewById(R.id.welSetPwdB);
 		AppCompatEditText editText = activity.findViewById(R.id.welPwdET);
+		AppCompatEditText editTextConfirm = activity.findViewById(R.id.welPwdETConfirm);
+		AppCompatButton alreadySetPwdB = activity.findViewById(R.id.welAlreadyUsedB);
+		AppCompatButton whySetPwdB = activity.findViewById(R.id.welWhySetPassB);
 
 		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
 
 		setPwdB.setOnClickListener(myView -> {
 			String inputPass = editText.getText().toString();
+			String inputPassConfirm = editTextConfirm.getText().toString();
+			if (inputPass.hashCode() != inputPassConfirm.hashCode()) {
+				Toast.makeText(activity, getString(R.string.please_enter_the_same_password_twice), Toast.LENGTH_LONG).show();
+				return;
+			}
 			try {
 				encryptedStorageController.setMasterPassword(activity, inputPass);
 				Toast.makeText(activity, "Password set", Toast.LENGTH_SHORT).show();
@@ -65,6 +75,26 @@ public class WelcomeFragment extends Fragment {
 				Log.e(TAG, e.getMessage(), e);
 				Toast.makeText(activity, "Could not write your password to internal app storage", Toast.LENGTH_LONG).show();
 			}
+		});
+
+		alreadySetPwdB.setOnClickListener(myView -> {
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+			alertDialogBuilder
+					.setTitle("This is a problem...")
+					.setMessage(R.string.i_ve_already_set_my_password_advice)
+					.setPositiveButton("Understood", (dialogInterface, i) -> dialogInterface.dismiss())
+					.setCancelable(true)
+					.show();
+		});
+
+		whySetPwdB.setOnClickListener(myView -> {
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+			alertDialogBuilder
+					.setTitle("To secure your data.")
+					.setMessage(R.string.why_set_a_password_advice)
+					.setPositiveButton("Understood", (dialogInterface, i) -> dialogInterface.dismiss())
+					.setCancelable(true)
+					.show();
 		});
 	}
 }

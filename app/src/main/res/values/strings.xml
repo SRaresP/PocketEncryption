@@ -38,10 +38,10 @@
     <string name="path">Path:</string>
     <string name="delete_selected">Delete selected</string>
     <string name="welcome">Welcome!</string>
-    <string name="welcome_message">It appears that this is the first time using this application. Please set an application password. Without it, anybody could access the data that you enter in this application.</string>
+    <string name="why_set_a_password_advice">It appears that this is the first time using this application. Please set an application password. Without it, anybody could access the data that you enter in this application. There is no way to access this application without setting a password.</string>
     <string name="password">Password:</string>
     <string name="password_warning">The password for this application should be different from any other one of your passwords, for your security.</string>
-    <string name="repeated_welcome">If you are seeing this screen after using this app already, it means your app data was deleted by the system. This can happen if you deleted your app data using your phone\'s app manager, usually found in the settings app.</string>
+    <string name="i_ve_already_set_my_password_advice">If you are seeing this screen after using this app already, it means your app data was deleted by the system. This can happen if you deleted your app data using your phone\'s app manager, usually found in the settings app. There is no way to undo or prevent this besides not clearing the app storage. If you didn\'t do this manually, your entire phone may be infected by a malicious software.</string>
     <string name="set_this_password">Set this password</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="login_error_advice">If you have never used this app before and you have not entered any of your data into it, you should try to clear your app data for this app using your settings application.</string>
@@ -52,4 +52,8 @@
     <string name="to_update_your_password_enter_your_current_password_here">To update your password, enter your current password here:</string>
     <string name="enter_your_new_password_here">Enter your new password here:</string>
     <string name="initialising_encryption_handler">Initialising encryption handler</string>
+    <string name="why_set_a_password">Why set a password?</string>
+    <string name="i_ve_already_set_my_password">I\'ve already set my password</string>
+    <string name="confirm_password">Confirm password:</string>
+    <string name="please_enter_the_same_password_twice">Please enter the same password twice</string>
 </resources>
