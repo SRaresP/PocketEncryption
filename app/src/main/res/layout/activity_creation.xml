@@ -1,98 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?><!-- All id's in this file should start with "cr" to denote the activity -->
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="top"
-    android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".ui.CreationActivity">
-
-    <TextView
-        android:id="@+id/crCreateNewTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/create_a_new"
-        android:textAlignment="center"
-        android:textSize="30sp" />
-
-    <RadioGroup
-        android:id="@+id/crFileTypeRD"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/crTextFileRB"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_file" />
-
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/crFolderRB"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/folder" />
-    </RadioGroup>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/crEntryNameTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:labelFor="@id/crEntryNameET"
-        android:text="@string/entry_name"
-        android:textAlignment="textStart"
-        android:textSize="20sp" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/crEntryNameET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:textSize="20sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/crEntryContentTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:labelFor="@+id/crEntryContentET"
-        android:text="@string/entry_content"
-        android:textAlignment="textStart"
-        android:textSize="20sp" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/crEntryContentET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:textAlignment="textStart"
-        android:textSize="20sp" />
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:gravity="top"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".ui.CreationActivity">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/crCreateB"
-            android:layout_width="1dp"
+        <TextView
+            android:id="@+id/crCreateNewTV"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:text="@string/create_a_new"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <RadioGroup
+            android:id="@+id/crFileTypeRD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/crTextFileRB"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_file" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/crFolderRB"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/folder" />
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/crEntryNameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/crEntryNameET"
+            android:text="@string/entry_name"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/crEntryNameET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="64"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/crEntryContentTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/crEntryContentET"
+            android:text="@string/entry_content"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/crEntryContentET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:enabled="false"
-            android:text="@string/create_and_save" />
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/crExitB"
-            android:layout_width="1dp"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/exit" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/crCreateB"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:text="@string/create_and_save" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/crExitB"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/exit" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>
