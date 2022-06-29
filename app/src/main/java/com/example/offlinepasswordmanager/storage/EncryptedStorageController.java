@@ -30,8 +30,6 @@ public class EncryptedStorageController extends StorageController {
 	private final CryptoHandler cryptoHandler;
 	private final MessageDigest messageDigest;
 
-	//TODO: move most of this to separate concurrent threads
-
 	private EncryptedStorageController(final Context context) throws NoSuchAlgorithmException {
 		super();
 		encryptedStorageRoot = new File(context.getFilesDir().getAbsolutePath() + EncryptedStorageFolderPath);
@@ -144,7 +142,7 @@ public class EncryptedStorageController extends StorageController {
 		FileInputStream fileInputStream = new FileInputStream(targetFile);
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-		//WE HAVE TO READ THE ENCRYPTED DATA IN CHUNKS OF THE EXACT BLOCK SIZE IT WAS WRITTEN IN
+		//HAVE TO READ THE ENCRYPTED DATA IN CHUNKS OF THE EXACT BLOCK SIZE IT WAS WRITTEN IN
 		//well, I think
 		byte[] input = new byte[cryptoHandler.getCurrentBlockSize()];
 		while (fileInputStream.read(input) != -1) {

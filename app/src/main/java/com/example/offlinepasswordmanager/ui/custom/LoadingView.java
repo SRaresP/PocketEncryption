@@ -33,9 +33,8 @@ public class LoadingView {
 		if (vertical) containerLayout.setOrientation(LinearLayoutCompat.VERTICAL);
 		if (toReplace != null) {
 			progressBar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, toReplace.getHeight()));
-			containerLayout.setLayoutParams(new LinearLayoutCompat.LayoutParams(toReplace.getWidth(), toReplace.getHeight()));
-		}
-		else {
+			containerLayout.setLayoutParams(toReplace.getLayoutParams());
+		} else {
 			progressBar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 			textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 			containerLayout.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -54,12 +53,14 @@ public class LoadingView {
 				if (c.equals(toReplace)) layoutToAddTo.addView(containerLayout);
 				else layoutToAddTo.addView(c);
 			}
-		}
-		else layoutToAddTo.addView(containerLayout);
+		} else layoutToAddTo.addView(containerLayout);
 		return this;
 	}
 
 	public void terminate() {
-		layoutToAddTo.removeView(containerLayout);
+		layoutToAddTo.removeAllViewsInLayout();
+		for (View c : children) {
+			layoutToAddTo.addView(c);
+		}
 	}
 }

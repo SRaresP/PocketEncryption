@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.offlinepasswordmanager.PocketEncryptionApp;
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
 
@@ -52,24 +53,33 @@ public class SettingsFragment extends Fragment {
 		AppCompatEditText currentPwdET = fragmentActivity.findViewById(R.id.setCurrentPwdET);
 		AppCompatEditText newPwdET = fragmentActivity.findViewById(R.id.setNewPwdET);
 
+		PocketEncryptionApp pocketEncryptionApp = PocketEncryptionApp.getInstance();
 		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(fragmentActivity);
 
 		updatePwdB.setOnClickListener(myView -> {
 			String currentPwd = currentPwdET.getText().toString();
-			try {
-				if (!encryptedStorageController.checkMasterPassword(currentPwd)) {
-					Toast.makeText(fragmentActivity, R.string.password_rejected, Toast.LENGTH_LONG).show();
-					return;
+			String newPwd = newPwdET.getText().toString();
+			pocketEncryptionApp.getExecutorService().execute(() -> {
+				try {
+					if (!encryptedStorageController.checkMasterPassword(currentPwd)) {
+						pocketEncryptionApp.getMainThreadHandler().post(() -> {
+							Toast.makeText(fragmentActivity, R.string.password_rejected, Toast.LENGTH_SHORT).show();
+						});
+						return;
+					}
+					encryptedStorageController.setMasterPassword(fragmentActivity, newPwd);
+					pocketEncryptionApp.getMainThreadHandler().post(() -> {
+						currentPwdET.setText("");
+						newPwdET.setText("");
+						Toast.makeText(fragmentActivity, R.string.password_set, Toast.LENGTH_SHORT).show();
+					});
+				} catch (IOException e) {
+					Log.e(TAG, e.getMessage(), e);
+					pocketEncryptionApp.getMainThreadHandler().post(() -> {
+						Toast.makeText(fragmentActivity, R.string.could_not_modify_password, Toast.LENGTH_SHORT).show();
+					});
 				}
-				String newPwd = newPwdET.getText().toString();
-				encryptedStorageController.setMasterPassword(fragmentActivity, newPwd);
-				currentPwdET.setText("");
-				newPwdET.setText("");
-				Toast.makeText(fragmentActivity, R.string.password_set, Toast.LENGTH_LONG).show();
-			} catch (IOException e) {
-				Log.e(TAG, e.getMessage(), e);
-				Toast.makeText(fragmentActivity, R.string.could_not_modify_password, Toast.LENGTH_LONG).show();
-			}
+			});
 		});
 	}
 }

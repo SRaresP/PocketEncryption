@@ -37,7 +37,6 @@
     <string name="i_ve_already_set_my_password_advice">Daca vedeți acest ecran dupa ce ați folosit deja această aplicatie, înseamnă că datele dumneavoastră au fost șterse de către sistem. Acest lucru se poate întampla daca ati șters datele aplicației folosind administratorul de aplicații al telefonului dumneavoastră, care se găsește de obicei in aplicația de setări. Nu există o modalitate de a inversa sau a preveni acest lucru în afară de a nu șterge datele aplicației. Dacă nu ați facut acest lucru manual, întregul telefon s-ar putea sa fie infectat cu un software malițios.</string>
     <string name="set_this_password">Setează această parolă</string>
     <string name="welcome_back">Bine ați revenit!</string>
-    <string name="login_error_advice">Dacă nu ați mai folosit niciodată această aplicație și nu v-ați introdus datele în ea, ar trebui să încercați sa ștergeți datele pentru această aplicație folosind aplicația de setări.</string>
     <string name="please_enter_your_password">Vă rog să vă introduceți parola mai jos pentru a primi acces la această aplicație.</string>
     <string name="enter">Intrați</string>
     <string name="update_password">Actualizați parola</string>
@@ -68,4 +67,10 @@
     <string name="could_not_modify_password">Nu s-a putut modifica parola</string>
     <string name="this_is_a_problem">Aceasta este o problemă…</string>
     <string name="to_secure_your_data">Pentru a vă securiza datele.</string>
+    <string name="creating">Se creează</string>
+    <string name="login_error_advice">Dacă nu ați mai folosit niciodată această aplicație și nu v-ați introdus datele în ea, ar trebui să încercați sa ștergeți datele pentru această aplicație folosind aplicația de setări. Apoi, aplicația vă va cere să setați o parolă în loc să vă ceară o parolă pe care nu puteți să o fi setat daca nu ați mai folosit aplcația până acum.</string>
+    <string name="checking_password">Se verifică parola</string>
+    <string name="deleting">Se șterge</string>
+    <string name="failed_to_delete_the_old_file">Nu s-a putut șterge fișierul vechi, s-ar putea să fi fost șters deja</string>
+    <string name="saving">Se salvează</string>
 </resources>

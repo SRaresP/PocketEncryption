@@ -14,11 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.offlinepasswordmanager.PocketEncryptionApp;
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.ui.custom.LoadingView;
 
 import java.io.IOException;
 
@@ -55,7 +58,9 @@ public class WelcomeFragment extends Fragment {
 		AppCompatEditText editTextConfirm = activity.findViewById(R.id.welPwdETConfirm);
 		AppCompatButton alreadySetPwdB = activity.findViewById(R.id.welAlreadyUsedB);
 		AppCompatButton whySetPwdB = activity.findViewById(R.id.welWhySetPassB);
+		LinearLayoutCompat pwdLayout = activity.findViewById(R.id.welPwdLayout);
 
+		PocketEncryptionApp pocketEncryptionApp = PocketEncryptionApp.getInstance();
 		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
 
 		setPwdB.setOnClickListener(myView -> {
@@ -65,15 +70,24 @@ public class WelcomeFragment extends Fragment {
 				Toast.makeText(activity, getString(R.string.please_enter_the_same_password_twice), Toast.LENGTH_LONG).show();
 				return;
 			}
-			try {
-				encryptedStorageController.setMasterPassword(activity, inputPass);
-				Toast.makeText(activity, R.string.password_set, Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(activity, PrimaryActivity.class);
-				startActivity(intent);
-			} catch (IOException e) {
-				Log.e(TAG, e.getMessage(), e);
-				Toast.makeText(activity, R.string.could_not_set_your_password, Toast.LENGTH_LONG).show();
-			}
+			LoadingView loadingView = new LoadingView(pwdLayout, activity, getString(R.string.saving), setPwdB, false).show();
+			pocketEncryptionApp.getExecutorService().execute(() -> {
+				try {
+					encryptedStorageController.setMasterPassword(activity, inputPass);
+					pocketEncryptionApp.getMainThreadHandler().post(() -> {
+						loadingView.terminate();
+						Toast.makeText(activity, R.string.password_set, Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent(activity, PrimaryActivity.class);
+						startActivity(intent);
+					});
+				} catch (IOException e) {
+					Log.e(TAG, e.getMessage(), e);
+					pocketEncryptionApp.getMainThreadHandler().post(() -> {
+						loadingView.terminate();
+						Toast.makeText(activity, R.string.could_not_set_your_password, Toast.LENGTH_LONG).show();
+					});
+				}
+			});
 		});
 
 		alreadySetPwdB.setOnClickListener(myView -> {

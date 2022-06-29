@@ -37,7 +37,6 @@
     <string name="i_ve_already_set_my_password_advice">If you are seeing this screen after using this app already, it means your app data was deleted by the system. This can happen if you deleted your app data using your phone\'s app manager, usually found in the settings app. There is no way to undo or prevent this besides not clearing the app storage. If you didn\'t do this manually, your entire phone may be infected by a malicious software.</string>
     <string name="set_this_password">Set this password</string>
     <string name="welcome_back">Welcome back!</string>
-    <string name="login_error_advice">If you have never used this app before and you have not entered any of your data into it, you should try to clear your app data for this app using your settings application.</string>
     <string name="please_enter_your_password">Please enter your password below to get access to this application.</string>
     <string name="enter">Enter</string>
     <string name="update_password">Update password</string>
@@ -68,4 +67,10 @@
     <string name="could_not_modify_password">Could not modify password</string>
     <string name="this_is_a_problem">This is a problem…</string>
     <string name="to_secure_your_data">To secure your data.</string>
+    <string name="creating">Creating</string>
+    <string name="login_error_advice">If you have never used this app before and you have not entered any of your data into it, you should try to clear your app data for this app using your settings application. After this, the app will ask you to set a password instead of requiring a password from you that you couldn\'t have set if you haven\'t used the app before.</string>
+    <string name="checking_password">Checking password</string>
+    <string name="deleting">Deleting</string>
+    <string name="failed_to_delete_the_old_file">Failed to delete the old file, it may have been deleted already</string>
+    <string name="saving">Saving</string>
 </resources>

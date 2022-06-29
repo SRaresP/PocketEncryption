@@ -2,6 +2,7 @@ package com.example.offlinepasswordmanager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -10,15 +11,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.example.offlinepasswordmanager.PocketEncryptionApp;
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.ui.custom.LoadingView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 public class CreationActivity extends AppCompatActivity {
@@ -32,11 +36,14 @@ public class CreationActivity extends AppCompatActivity {
 		Intent intent = getIntent();
 		String internalPath = intent.getStringExtra("InternalPath");
 
+		ExecutorService appExecutorService = PocketEncryptionApp.getInstance().getExecutorService();
+		Handler mainThreadHandler = PocketEncryptionApp.getInstance().getMainThreadHandler();
+
 		ArrayList<Callable<EncryptedStorageController>> tasks = new ArrayList<>(1);
 		tasks.add(() -> {
 			return EncryptedStorageController.getInstance(this);
 		});
-		Future<EncryptedStorageController> future = PocketEncryptionApp.getInstance().getExecutorService().submit(tasks.get(0));
+		Future<EncryptedStorageController> future = appExecutorService.submit(tasks.get(0));
 
 		AppCompatButton cancelButton = findViewById(R.id.crExitB);
 		AppCompatButton saveButton = findViewById(R.id.crCreateB);
@@ -45,6 +52,7 @@ public class CreationActivity extends AppCompatActivity {
 		RadioGroup fileTypeRD = findViewById(R.id.crFileTypeRD);
 		RadioButton textFileRB = findViewById(R.id.crTextFileRB);
 		RadioButton folderRB = findViewById(R.id.crFolderRB);
+		LinearLayoutCompat buttonLayout = findViewById(R.id.crButtonLayout);
 
 		textFileRB.setOnClickListener(view -> {
 			contentET.setEnabled(true);
@@ -66,25 +74,43 @@ public class CreationActivity extends AppCompatActivity {
 				}
 				int checkedId = fileTypeRD.getCheckedRadioButtonId();
 				if (checkedId == textFileRB.getId()) {
-					try {
-						encryptedStorageController.add(fileNameET.getText().toString(), contentET.getText().toString(), internalPath);
-						Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show();
-						fileNameET.setText("");
-						contentET.setText("");
-					} catch (IOException e) {
-						Log.e(TAG, e.getMessage(), e);
-						Toast.makeText(this, R.string.could_not_save_your_file, Toast.LENGTH_LONG).show();
-					}
+					LoadingView loadingView = new LoadingView(buttonLayout, this, getString(R.string.creating), saveButton, false).show();
+					appExecutorService.execute(() -> {
+						try {
+							encryptedStorageController.add(fileNameET.getText().toString(), contentET.getText().toString(), internalPath);
+							mainThreadHandler.post(() -> {
+								loadingView.terminate();
+								Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show();
+								fileNameET.setText("");
+								contentET.setText("");
+							});
+						} catch (IOException e) {
+							Log.e(TAG, e.getMessage(), e);
+							mainThreadHandler.post(() -> {
+								loadingView.terminate();
+								Toast.makeText(this, R.string.could_not_save_your_file, Toast.LENGTH_LONG).show();
+							});
+						}
+					});
 				} else if (checkedId == folderRB.getId()) {
-					try {
-						encryptedStorageController.createDirectory(fileNameET.getText().toString(), internalPath);
-						Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show();
-						fileNameET.setText("");
-						contentET.setText("");
-					} catch (IOException e) {
-						Log.e(TAG, e.getMessage(), e);
-						Toast.makeText(this, R.string.failed_to_create_your_directory, Toast.LENGTH_LONG).show();
-					}
+					LoadingView loadingView = new LoadingView(buttonLayout, this, getString(R.string.creating), saveButton, false).show();
+					appExecutorService.execute(() -> {
+						try {
+							encryptedStorageController.createDirectory(fileNameET.getText().toString(), internalPath);
+							mainThreadHandler.post(() -> {
+								loadingView.terminate();
+								Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show();
+								fileNameET.setText("");
+								contentET.setText("");
+							});
+						} catch (IOException e) {
+							Log.e(TAG, e.getMessage(), e);
+							mainThreadHandler.post(() -> {
+								loadingView.terminate();
+								Toast.makeText(this, R.string.failed_to_create_your_directory, Toast.LENGTH_LONG).show();
+							});
+						}
+					});
 				} else {
 					Log.i(TAG, "No radio button selected on creation button click");
 					Toast.makeText(this, R.string.you_need_to_select_an_entry_type_above, Toast.LENGTH_LONG).show();

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -19,8 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.offlinepasswordmanager.PocketEncryptionApp;
 import com.example.offlinepasswordmanager.R;
 import com.example.offlinepasswordmanager.storage.EncryptedStorageController;
+import com.example.offlinepasswordmanager.ui.custom.LoadingView;
 
 import java.io.IOException;
 
@@ -55,24 +58,37 @@ public class LoginFragment extends Fragment {
 		AppCompatButton enterB = activity.findViewById(R.id.logEnterB);
 		AppCompatEditText editText = activity.findViewById(R.id.logPwdET);
 		AppCompatImageButton helpB = activity.findViewById(R.id.logHelpB);
+		ConstraintLayout layout = activity.findViewById(R.id.logLayout);
 
+		PocketEncryptionApp pocketEncryptionApp = PocketEncryptionApp.getInstance();
 		EncryptedStorageController encryptedStorageController = EncryptedStorageController.getInstance(activity);
 
 		enterB.setOnClickListener(myView -> {
+			LoadingView loadingView = new LoadingView(layout, activity, getString(R.string.checking_password), enterB, false).show();
 			String inputPass = editText.getText().toString();
-			try {
-				if (encryptedStorageController.checkMasterPassword(inputPass)) {
-					Toast.makeText(activity, R.string.password_accepted, Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(activity, PrimaryActivity.class);
-					startActivity(intent);
+			pocketEncryptionApp.getExecutorService().execute(() -> {
+				try {
+					if (encryptedStorageController.checkMasterPassword(inputPass)) {
+						pocketEncryptionApp.getMainThreadHandler().post(() -> {
+							loadingView.terminate();
+							Toast.makeText(activity, R.string.password_accepted, Toast.LENGTH_SHORT).show();
+							Intent intent = new Intent(activity, PrimaryActivity.class);
+							startActivity(intent);
+						});
+					} else {
+						pocketEncryptionApp.getMainThreadHandler().post(() -> {
+							loadingView.terminate();
+							Toast.makeText(activity, R.string.password_rejected, Toast.LENGTH_SHORT).show();
+						});
+					}
+				} catch (IOException e) {
+					Log.e(TAG, e.getMessage(), e);
+					pocketEncryptionApp.getMainThreadHandler().post(() -> {
+						loadingView.terminate();
+						Toast.makeText(activity, R.string.could_not_find_the_file_containing_your_set_password, Toast.LENGTH_LONG).show();
+					});
 				}
-				else {
-					Toast.makeText(activity, R.string.password_rejected, Toast.LENGTH_SHORT).show();
-				}
-			} catch (IOException e) {
-				Log.e(TAG, e.getMessage(), e);
-				Toast.makeText(activity, R.string.could_not_find_the_file_containing_your_set_password, Toast.LENGTH_LONG).show();
-			}
+			});
 		});
 
 		helpB.setOnClickListener(myView -> {
