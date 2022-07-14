@@ -9,34 +9,34 @@ The app's backbone is pretty much done now and can be used. Version 1.0 is comin
 
 ## Currently working on:
 
--Testing
+- Testing
 
--Implement option to use internet temporarily to send recovery email?
+- Implement option to use internet temporarily to send recovery email?
 
 ## TODO:
 
--Implement periodic backups to internal shared storage, which can be disabled, along with exporting and importing them manually.
+- Implement periodic backups to internal shared storage, which can be disabled, along with exporting and importing them manually.
 
 ## Done:
 
--App is multithreaded everywhere it was useful
+- App is multithreaded everywhere it was useful
 
--Code cleanup and refactoring (2022.06.29)
+- Code cleanup and refactoring (2022.06.29)
 
--Romanian translation
+- Romanian translation
 
--Generated release v0.5 for closed testing
+- Generated release v0.5 for closed testing
 
--User warnings
+- User warnings
 
--Resettable master password
+- Resettable master password
 
--Easy-use, encrypted file r/w utilities
+- Easy-use, encrypted file r/w utilities
 
--Implemented easy-to-use encryption utilities using modern algorithms
+- Implemented easy-to-use encryption utilities using modern algorithms
 
--Encryption key secure storage using the Android Key Store
+- Encryption key secure storage using the Android Key Store
 
--Theming, partially
+- Theming, partially
 
--UI (will be updated more in time)
+- UI (will be updated more in time)
