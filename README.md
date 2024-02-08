@@ -1,4 +1,4 @@
-# **PocketEncryption** (Currently on hold, I am working on my degree, will probably pick this up again in a few months)
+# **PocketEncryption** (Currently on hold)
 
 Development source of an app designed to provide offline encryption services for any text, initially, with later possibility to expand into file and folder encryption later.
 
